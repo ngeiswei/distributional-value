@@ -1,0 +1,293 @@
+#
+# Master URE CMake file.
+#
+# General organization:
+# -- check for different compilers, OS'es
+# -- search for various required & optional libraries/tools
+# -- decide what to build based on above results.
+# -- configure various config files.
+# -- print pretty summary
+#
+# cogutils already requires 2.8.12.2, so may as well ask for that.
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12.2)
+IF (COMMAND CMAKE_POLICY)
+	CMAKE_POLICY(SET CMP0003 NEW)
+ENDIF (COMMAND CMAKE_POLICY)
+
+IF(CMAKE_VERSION VERSION_GREATER 3.0.2)
+	CMAKE_POLICY(SET CMP0037 OLD)
+	CMAKE_POLICY(SET CMP0042 NEW)
+ENDIF(CMAKE_VERSION VERSION_GREATER 3.0.2)
+IF (CMAKE_VERSION VERSION_GREATER 3.9.0)
+	CMAKE_POLICY(SET CMP0068 NEW)
+ENDIF (CMAKE_VERSION VERSION_GREATER 3.9.0)
+
+PROJECT(ure)
+
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12.2)
+IF (COMMAND CMAKE_POLICY)
+	CMAKE_POLICY(SET CMP0003 NEW)
+ENDIF (COMMAND CMAKE_POLICY)
+
+IF(CMAKE_VERSION VERSION_GREATER 3.0.2)
+	CMAKE_POLICY(SET CMP0037 OLD)
+	CMAKE_POLICY(SET CMP0042 NEW)
+ENDIF(CMAKE_VERSION VERSION_GREATER 3.0.2)
+IF (CMAKE_VERSION VERSION_GREATER 3.9.0)
+	CMAKE_POLICY(SET CMP0068 NEW)
+ENDIF (CMAKE_VERSION VERSION_GREATER 3.9.0)
+
+PROJECT(distvalue)
+
+# ----------------------------------------------------------
+# User-modifiable options. Feel free to change these!
+#
+# Uncomment to be in Release mode [default].
+# SET(CMAKE_BUILD_TYPE Release)
+
+# Uncomment to build in debug mode.
+# SET(CMAKE_BUILD_TYPE Debug)
+
+# Uncomment to be in coverage testing mode.
+# SET(CMAKE_BUILD_TYPE Coverage)
+
+# Uncomment to build in profile mode.
+# SET(CMAKE_BUILD_TYPE Profile)
+
+# Uncomment to build in release mode with debug information.
+# SET(CMAKE_BUILD_TYPE RelWithDebInfo)
+
+# default build type
+IF (CMAKE_BUILD_TYPE STREQUAL "")
+	SET(CMAKE_BUILD_TYPE Release)
+ENDIF (CMAKE_BUILD_TYPE STREQUAL "")
+
+MESSAGE(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+
+ADD_DEFINITIONS(-DPROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
+                -DPROJECT_BINARY_DIR="${CMAKE_BINARY_DIR}")
+
+# ===============================================================
+# Detect different compilers and OS'es, tweak flags as necessary.
+
+# The default case for non-profile builds is to use shared libraries. So don't
+# use explicit SHARED in the ADD_LIBRARY calls in CMakeLists.txt instances or
+# this flag won't work since it only affects the default.
+IF (CMAKE_BUILD_TYPE STREQUAL "Profile")
+	SET(BUILD_SHARED_LIBS OFF)
+ELSE (CMAKE_BUILD_TYPE STREQUAL "Profile")
+	SET(BUILD_SHARED_LIBS ON)
+ENDIF (CMAKE_BUILD_TYPE STREQUAL "Profile")
+
+# ===============================================================
+# Check for existance of various required, optional packages.
+# Listed in alphabetical order, more or less.
+# CogUtil must come first, because it supplies various FindXXX macros.
+
+# Cogutil
+FIND_PACKAGE(CogUtil CONFIG)
+IF (COGUTIL_FOUND)
+	MESSAGE(STATUS "CogUtil version ${COGUTIL_VERSION} found.")
+	ADD_DEFINITIONS(-DHAVE_COGUTIL)
+	SET(HAVE_COGUTIL 1)
+ELSE (COGUTIL_FOUND)
+	MESSAGE(FATAL_ERROR "CogUtil missing: it is needed!")
+ENDIF (COGUTIL_FOUND)
+
+# AtomSpace
+FIND_PACKAGE(AtomSpace 5.0.3 CONFIG REQUIRED)
+IF (ATOMSPACE_FOUND)
+	MESSAGE(STATUS "AtomSpace found.")
+	ADD_DEFINITIONS(-DHAVE_ATOMSPACE)
+	SET(HAVE_ATOMSPACE 1)
+ELSE (ATOMSPACE_FOUND)
+	MESSAGE(FATAL_ERROR "AtomSpace missing: it is needed!")
+ENDIF (ATOMSPACE_FOUND)
+
+# add the 'cmake' directory from cogutil to search path
+list(APPEND CMAKE_MODULE_PATH  ${COGUTIL_DATA_DIR}/cmake)
+include(OpenCogGccOptions)
+include(Summary)
+
+# ----------------------------------------------------------
+# Needed for unit tests.
+
+FIND_PACKAGE(Cxxtest)
+IF (CXXTEST_FOUND)
+	MESSAGE(STATUS "CxxTest found.")
+ELSE (CXXTEST_FOUND)
+	MESSAGE(STATUS "CxxTest missing: needed for unit tests.")
+ENDIF (CXXTEST_FOUND)
+
+# ----------------------------------------------------------
+# This is required for Guile
+FIND_LIBRARY(GMP_LIBRARY gmp)
+FIND_PATH(GMP_INCLUDE_DIR gmp.h)
+
+# Gnu Guile scheme interpreter. Mandatory
+# Version 2.2.2 is needed for mrs io ports, compilation, atomics, nlp
+FIND_PACKAGE(Guile 2.2.2)
+IF (GUILE_FOUND AND GMP_LIBRARY AND GMP_INCLUDE_DIR)
+	ADD_DEFINITIONS(-DHAVE_GUILE)
+	SET(HAVE_GUILE 1)
+	INCLUDE_DIRECTORIES(${GUILE_INCLUDE_DIR})
+ELSE (GUILE_FOUND AND GMP_LIBRARY AND GMP_INCLUDE_DIR)
+	SET(GUILE_DIR_MESSAGE "Guile was not found; the scheme shell will not be built.\nTo over-ride, make sure GUILE_LIBRARIES and GUILE_INCLUDE_DIRS are set.")
+	MESSAGE(FATAL_ERROR "${GUILE_DIR_MESSAGE}")
+ENDIF (GUILE_FOUND AND GMP_LIBRARY AND GMP_INCLUDE_DIR)
+
+# ===================================================================
+# Global includes
+
+# -------------------------------------------------
+# Include configuration.
+
+# Set default include paths.
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR} ${Boost_INCLUDE_DIRS}
+	${COGUTIL_INCLUDE_DIR} ${ATOMSPACE_INCLUDE_DIR})
+
+# Macros that define how atom types get declared.
+INCLUDE("${ATOMSPACE_DATA_DIR}/cmake/OpenCogMacros.cmake")
+INCLUDE("${ATOMSPACE_DATA_DIR}/cmake/OpenCogGuile.cmake")
+INCLUDE("${ATOMSPACE_DATA_DIR}/cmake/OpenCogCython.cmake")
+
+# -------------------------------------------------
+# Library configuration
+
+# Small hack to handle unixes that use "/usr/lib64" instead of
+# "/usr/lib" as the default lib path on 64 bit archs.
+#
+IF (NOT DEFINED LIB_DIR_SUFFIX)
+	EXECUTE_PROCESS(COMMAND ${CMAKE_CXX_COMPILER} -print-search-dirs OUTPUT_VARIABLE PRINT_SEARCH_DIRS_OUTPUT)
+	STRING(REGEX MATCH "\r?\nlibraries:.*\r?\n" COMPILER_LIB_SEARCH_DIRS ${PRINT_SEARCH_DIRS_OUTPUT})
+	IF (NOT ${COMPILER_LIB_SEARCH_DIRS} STREQUAL "")
+		STRING(REGEX MATCH "/lib64/:|/lib64:|/lib64\n" HAS_LIB64 ${COMPILER_LIB_SEARCH_DIRS})
+		IF (NOT ${HAS_LIB64} STREQUAL "")
+			SET(LIB_DIR_SUFFIX "64")
+		ENDIF (NOT ${HAS_LIB64} STREQUAL "")
+	ENDIF (NOT ${COMPILER_LIB_SEARCH_DIRS} STREQUAL "")
+ENDIF (NOT DEFINED LIB_DIR_SUFFIX)
+
+# RPATH handling (see https://cmake.org/Wiki/CMake_RPATH_handling)
+# Note: RPATH only supported under Linux!
+SET(CMAKE_SKIP_BUILD_RPATH	FALSE)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+SET(CMAKE_INSTALL_RPATH
+	"${CMAKE_INSTALL_PREFIX}/lib/opencog"
+	"${PYTHON_DEST}")
+
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+# -------------------------------------------------
+# Install configuration
+
+# Only list install files that have actually changed.
+SET(CMAKE_INSTALL_MESSAGE "LAZY")
+
+# Set confdir and datadir.
+IF (NOT DEFINED CONFDIR)
+	SET (CONFDIR "${CMAKE_INSTALL_PREFIX}/etc")
+ENDIF (NOT DEFINED CONFDIR)
+
+IF (NOT DEFINED DATADIR)
+	SET (DATADIR "${CMAKE_INSTALL_PREFIX}/share/opencog")
+ENDIF (NOT DEFINED DATADIR)
+
+ADD_DEFINITIONS(-DCONFDIR="${CONFDIR}")
+ADD_DEFINITIONS(-DDATADIR="${DATADIR}")
+
+# (re?)define MAN_INSTALL_DIR
+SET (MAN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/share/man")
+
+# ==========================================================
+# Decide what to build, based on the packages found.
+
+IF(HAVE_ATOMSPACE AND HAVE_COGUTIL)
+    SET(HAVE_DISTV 1)
+ENDIF(HAVE_ATOMSPACE AND HAVE_COGUTIL)
+
+ADD_SUBDIRECTORY(opencog)
+
+IF (CXXTEST_FOUND)
+	ADD_CUSTOM_TARGET(tests)
+	ADD_SUBDIRECTORY(tests)
+	ADD_CUSTOM_TARGET(test
+		DEPENDS tests
+		WORKING_DIRECTORY tests
+		# COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process $(ARGS)
+		COMMAND ${CMAKE_CTEST_COMMAND} --force-new-ctest-process --output-on-failure $(ARGS)
+		COMMENT "Running tests..."
+	)
+ENDIF (CXXTEST_FOUND)
+
+IF (NOT WIN32)
+	ADD_CUSTOM_TARGET (examples
+		# using CMAKE_BUILD_TOOL results in teh cryptic error message
+		# warning: jobserver unavailable: using -j1.  Add `+' to parent make rule.
+		# This is because make doesn't know how to pass jobserver args to
+		# the submake.  So, instead, just use $(MAKE) (with round parens)
+		# -- that will do the right thing.
+		# COMMAND ${CMAKE_BUILD_TOOL}
+		COMMAND $(MAKE)
+		WORKING_DIRECTORY examples
+		COMMENT "Building examples"
+	)
+ENDIF (NOT WIN32)
+
+ADD_CUSTOM_TARGET(cscope
+	COMMAND find opencog examples tests -name '*.cc' -o -name '*.h' -o -name '*.cxxtest' -o -name '*.scm' > ${CMAKE_SOURCE_DIR}/cscope.files
+	COMMAND cscope -b
+	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+	COMMENT "Generating CScope database"
+)
+
+# ===============================================================
+# Packaging
+## Architecture the package is for.
+## TODO: Will give error on non debian distros, fix it.
+EXECUTE_PROCESS(COMMAND  dpkg --print-architecture
+	OUTPUT_VARIABLE PACKAGE_ARCHITECTURE
+	OUTPUT_STRIP_TRAILING_WHITESPACE)
+STRING(TIMESTAMP UTC_DATE %Y%m%d UTC)
+# If 'sudo make install' is run before 'make package', then install_manifest.txt
+# will be owned by root. Creating the file during configuration stage ensures
+# that is owned by the builder thus avoiding 'Permission denied' error when
+# packaging
+FILE(WRITE "${PROJECT_BINARY_DIR}/install_manifest.txt")
+
+## Cpack configuration
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_PACKAGE_CONTACT "opencog@googlegroups.com")
+SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+SET(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/packages")
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Unified Rule Engine")
+SET(CPACK_PACKAGE_NAME "ure-dev")
+SET(CPACK_PACKAGE_VENDOR "opencog.org")
+SET(CPACK_PACKAGE_VERSION "${SEMANTIC_VERSION}-${UTC_DATE}")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+SET(CPACK_PACKAGE_FILE_NAME
+	"${CPACK_PACKAGE_NAME}_${CPACK_PACKAGE_VERSION}_${PACKAGE_ARCHITECTURE}")
+SET(CPACK_PACKAGING_INSTALL_PREFIX "/usr/local")
+
+## Debian specific configurations
+SET(DEPENDENCY_LIST
+	"guile-2.2-dev (>= 2.2.2)"
+	"libstdc++6 (>= 4.7)"
+	"libcogutil-dev (>= 2.0.2)"
+	"atomspace-dev (>= 5.0.3)"
+)
+
+STRING(REPLACE ";" ", " MAIN_DEPENDENCIES "${DEPENDENCY_LIST}")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "${MAIN_DEPENDENCIES}")
+SET(CPACK_DEBIAN_PACKAGE_SECTION "libdevel")
+SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "http://opencog.org")
+INCLUDE(CPack)
+
+# ===================================================================
+# Show a summary of what we found, what we will do.
+
+SUMMARY_ADD("distvalue" "Distributional Values" HAVE_DISTV)
+SUMMARY_ADD("Scheme bindings" "Scheme bindings and shell" HAVE_GUILE)
+SUMMARY_ADD("Unit tests" "Unit tests" CXXTEST_FOUND)
+SUMMARY_SHOW()

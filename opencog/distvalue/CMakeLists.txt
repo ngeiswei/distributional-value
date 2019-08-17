@@ -8,6 +8,7 @@ ADD_LIBRARY (distvalue
     CTHist.cc
 	DistributionalValue.cc
 	ConditionalDV.cc
+	DVFormulas.cc
 )
 
 TARGET_LINK_LIBRARIES(distvalue
@@ -26,5 +27,6 @@ INSTALL (FILES
 	CTHist.h
 	DistributionalValue.h
 	ConditionalDV.h
+	DVFormulas.h
 	DESTINATION "include/opencog/atoms/distvalue"
 )

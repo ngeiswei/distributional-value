@@ -30,3 +30,13 @@ INSTALL (FILES
 	DVFormulas.h
 	DESTINATION "include/opencog/atoms/distvalue"
 )
+
+IF (HAVE_GUILE)
+	ADD_LIBRARY (distv DistributionalValueSCM.cc)
+	TARGET_LINK_LIBRARIES(distv distvalue smob)
+	ADD_GUILE_EXTENSION(SCM_CONFIG distv "opencog-ext-path-distv")
+
+	INSTALL (TARGETS distv
+		EXPORT DISTVTargets
+		DESTINATION "lib${LIB_DIR_SUFFIX}/opencog")
+ENDIF (HAVE_GUILE)

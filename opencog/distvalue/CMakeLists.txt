@@ -7,6 +7,7 @@ ADD_LIBRARY (distvalue
 	CoverTree.cc
     CTHist.cc
 	DistributionalValue.cc
+	ConditionalDV.cc
 )
 
 TARGET_LINK_LIBRARIES(distvalue
@@ -24,5 +25,6 @@ INSTALL (FILES
 	CoverTree.h
 	CTHist.h
 	DistributionalValue.h
+	ConditionalDV.h
 	DESTINATION "include/opencog/atoms/distvalue"
 )

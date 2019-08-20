@@ -6,7 +6,7 @@
 #include <opencog/util/exceptions.h>
 #include <opencog/util/numeric.h>
 
-#include "DVecUtils.h"
+#include <opencog/distvalue/DVecUtils.h>
 
 namespace opencog
 {

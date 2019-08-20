@@ -28,7 +28,7 @@
 
 #include <boost/operators.hpp>
 
-#include <opencog/atoms/distvalue/DVecUtils.h>
+#include <opencog/distvalue/DVecUtils.h>
 
 using namespace std;
 

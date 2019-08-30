@@ -237,7 +237,11 @@ template <typename val_t>
 void CoverTree<val_t>::insert(const CoverTreeNode<val_t> & x)
 {
 	if (x.pos.size() != _dims)
+	{
+		std::cout << x.pos.size() << std::endl;
+		std::cout << _dims << std::endl;
 		throw RuntimeException(TRACE_INFO,"Can't Insert. Wrong Number of Dimensions.");
+	}
 
 	_total_count += get_count(x.value);
 

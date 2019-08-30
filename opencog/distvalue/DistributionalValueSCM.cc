@@ -27,6 +27,9 @@ void DistributionalValueSCM::init(void)
 	define_scheme_primitive("cog-new-dv-simple",
 	                        &DistributionalValueSCM::ss_new_dv_simple,
 	                        this,"distvalue");
+	define_scheme_primitive("cog-dv-add-evidence",
+	                        &DistributionalValueSCM::ss_dv_add_evidence,
+	                        this,"distvalue");
 	define_scheme_primitive("cog-dv?",
 	                        &DistributionalValueSCM::ss_dv_p,
 	                        this,"distvalue");
@@ -57,6 +60,9 @@ void DistributionalValueSCM::init(void)
 	define_scheme_primitive("cog-new-cdv",
 	                        &DistributionalValueSCM::ss_new_cdv,
 	                        this,"distvalue");
+	define_scheme_primitive("cog-cdv-add-evidence",
+	                        &DistributionalValueSCM::ss_cdv_add_evidence,
+	                        this,"distvalue");
 	define_scheme_primitive("cog-cdv-get-confidence",
 	                        &DistributionalValueSCM::ss_cdv_get_confidence,
 	                        this,"distvalue");
@@ -73,6 +79,9 @@ void DistributionalValueSCM::init(void)
 	                        &DistributionalValueSCM::ss_cdv_join,
 	                        this,"distvalue");
 
+	define_scheme_primitive("cog-cdv-deduction",
+	                        &DistributionalValueSCM::ss_cdv_deduction,
+	                        this,"distvalue");
 	define_scheme_primitive("cog-dv-merge-hi-conf",
 	                        &DistributionalValueSCM::ss_dv_merge_hi_conf,
 	                        this,"distvalue");
@@ -110,20 +119,26 @@ ValuePtr DistributionalValueSCM::ss_new_dv(Handle atom)
 		size = pow(size,dims);
 	}
 
-	DistributionalValuePtr res = DistributionalValue::createDV(dims,size);
+	DistributionalValuePtr res = DistributionalValue::createDV(size,dims);
 
 	return dv_to_scm(res);
 }
 
-ValuePtr DistributionalValueSCM::ss_dv_add_evidence(ValuePtr vdv,ValuePtr vdata)
+ValuePtr DistributionalValueSCM::ss_new_dv_simple(double mean, double conf)
+{
+	DistributionalValuePtr dv = DistributionalValue::createDV(mean,conf,false);
+	return dv_to_scm(dv);
+}
+
+ValuePtr DistributionalValueSCM::ss_dv_add_evidence(ValuePtr vdv,ValuePtr vpos,double count)
 {
 
 	DistributionalValuePtr dv = verify_dv(vdv,"cog-dv-divide",1);
-	DistributionalValuePtr data = verify_dv(vdata,"cog-dv-divide",2);
+	FloatValuePtr data = FloatValueCast(vpos);
 
-	DistributionalValuePtr res = dv->merge(data);
+	dv->add_evidence(data->value(),count);
 
-	return dv_to_scm(res);
+	return dv_to_scm(dv);
 }
 
 /**
@@ -220,20 +235,21 @@ ValuePtr DistributionalValueSCM::ss_new_cdv(Handle atom)
 		size = pow(size,dims);
 	}
 
-	ConditionalDVPtr res = ConditionalDV::createCDV(dims,size);
+	ConditionalDVPtr res = ConditionalDV::createCDV(size,dims);
 
 	return cdv_to_scm(res);
 }
 
-ValuePtr DistributionalValueSCM::ss_cdv_add_evidence(ValuePtr vcdv,ValuePtr vdata)
+ValuePtr DistributionalValueSCM::ss_cdv_add_evidence(ValuePtr vcdv,ValuePtr vpos,ValuePtr vdist)
 {
 
-	ConditionalDVPtr cdv = verify_cdv(vcdv,"cog-dv-divide",1);
-	ConditionalDVPtr data = verify_cdv(vdata,"cog-dv-divide",2);
+	ConditionalDVPtr cdv = verify_cdv(vcdv,"cog-cdv-add-evidence",1);
+	DistributionalValuePtr dist = verify_dv(vdist,"cog-ddv-add-evidence",1);
+	FloatValuePtr data = FloatValueCast(vpos);
 
-	ConditionalDVPtr res = cdv->merge(data);
+	cdv->add_evidence(data->value(),dist);
 
-	return cdv_to_scm(res);
+	return cdv_to_scm(cdv);
 }
 
 SCM DistributionalValueSCM::ss_cdv_get_confidence(ValuePtr scdv)
@@ -288,7 +304,6 @@ ValuePtr DistributionalValueSCM::ss_cdv_deduction(ValuePtr scdv1,ValuePtr scdv2)
 //	ConditionalDVPtr res = DVFormulas::consequent_disjunction_elemination(cdv1,cdv2);
 //	return cdv_to_scm(res);
 //}
-//
 
 ValuePtr DistributionalValueSCM::ss_dv_merge_hi_conf(ValuePtr sdv1,ValuePtr sdv2)
 {

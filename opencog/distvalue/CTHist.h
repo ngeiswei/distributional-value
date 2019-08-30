@@ -23,7 +23,7 @@
 #ifndef _OPENCOG_CTHIST_H
 #define _OPENCOG_CTHIST_H
 
-#include <opencog/atoms/distvalue/CoverTree.h>
+#include <opencog/distvalue/CoverTree.h>
 
 #include <boost/operators.hpp>
 

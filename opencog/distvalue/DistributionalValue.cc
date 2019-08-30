@@ -105,18 +105,23 @@ DistributionalValuePtr DistributionalValue::DEFAULT_TV()
 
 DistributionalValuePtr DistributionalValue::createDV(size_t size,size_t dims)
 {
-	return std::make_shared<const DistributionalValue>(size,dims);
+	return std::make_shared<DistributionalValue>(size,dims);
 }
 DistributionalValuePtr DistributionalValue::createDV(const CTHist<double> &hist)
 {
-	return std::make_shared<const DistributionalValue>(hist);
+	return std::make_shared<DistributionalValue>(hist);
+}
+DistributionalValuePtr
+DistributionalValue::createDV(double mean,double conf,bool fuzzy)
+{
+	return std::make_shared<DistributionalValue>(mean,conf,fuzzy);
 }
 
-DistributionalValuePtr DistributionalValue::createDV(double mode,
-                                                     double conf)
-{
-	return std::make_shared<const DistributionalValue>(mode,conf);
-}
+//DistributionalValuePtr DistributionalValue::createDV(double mode,
+//                                                     double conf)
+//{
+//	return std::make_shared<const DistributionalValue>(mode,conf);
+//}
 
 double DistributionalValue::to_conf(int c)
 {

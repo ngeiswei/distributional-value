@@ -1,5 +1,5 @@
 /*
- * opencog/atoms/distvalue/DistributionalValueSCM.h
+ * opencog/distvalue/DistributionalValueSCM.h
  *
  * Copyright (c) 2018 by SingularityNet
  * All Rights Reserved
@@ -53,8 +53,8 @@ protected:
 
 	//SCHEME Functions
 	ValuePtr ss_new_dv(Handle);
-	ValuePtr ss_dv_add_evidence(ValuePtr,ValuePtr);
-	SCM ss_new_dv_simple(SCM, SCM);
+	ValuePtr ss_new_dv_simple(double,double);
+	ValuePtr ss_dv_add_evidence(ValuePtr,ValuePtr,double);
 	SCM ss_dv_p(ValuePtr);
 	ValuePtr ss_dv_divide(ValuePtr,ValuePtr,SCM);
 	ValuePtr ss_dv_sum_joint(ValuePtr,SCM);
@@ -66,7 +66,7 @@ protected:
 	SCM ss_cdv_is_empty(ValuePtr);
 
 	ValuePtr ss_new_cdv(Handle);
-	ValuePtr ss_cdv_add_evidence(ValuePtr,ValuePtr);
+	ValuePtr ss_cdv_add_evidence(ValuePtr,ValuePtr,ValuePtr);
 	SCM ss_cdv_get_confidence(ValuePtr);
 	ValuePtr ss_cdv_get_unconditonal(ValuePtr,ValuePtr);
 	ValuePtr ss_cdv_get_joint(ValuePtr,ValuePtr);

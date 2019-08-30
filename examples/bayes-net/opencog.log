@@ -1,0 +1,667 @@
+[2018-07-26 10:29:40:699] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  8 (save-module-excursion _)
+  3822:12  7 (_)
+In bayesnet.scm:
+     58:0  6 (_)
+In unknown file:
+           5 (opencog-extension cog-execute! (#))
+           4 (apply-smob/1 #<catch-closure 56345830cfa0>)
+           3 (apply-smob/1 #<catch-closure 56345830cf20>)
+In opencog/rule-engine/rule-engine-utils.scm:
+    417:0  2 (has-dv _)
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 wrong-number-of-args (#f "Wrong number of â€¦" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 56345830cee0> wrong-number-of-args #f â€¦)
+
+ERROR: In procedure apply-smob/1:
+Wrong number of arguments to #<procedure has-dv (A)>
+ABORT: wrong-number-of-args
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7f0d380cdbd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7f0d380cdd3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7f0d380bd21a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7f0d380bd2eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7f0d380bd3d0]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2fc) [0x7f0d38976a1c]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_evaluate(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0xbe9) [0x7f0d32fc2de9]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_eval_scratch(opencog::AtomSpace*, opencog::Handle const&, opencog::AtomSpace*, bool) +0x92a) [0x7f0d32fbff6a]
+	10: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_term(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x709) [0x7f0d32d59f69]
+	11: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_sentence(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x166) [0x7f0d32d5b346]
+	12: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x91) [0x7f0d32d83491]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	25: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	26: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	27: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	28: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0xca7) [0x7f0d32d68e97]
+	29: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xec) [0x7f0d32d6bdfc]
+	30: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x390e) [0x7f0d32d74cce]
+	31: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x72) [0x7f0d32d74f32]
+	32: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x193) [0x7f0d32d60f63]
+	33: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x186) [0x7f0d32d61a86]
+	34: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5cb) [0x7f0d32d92dfb]
+	35: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1fe3) [0x7f0d32fcf9d3]
+	36: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7f0d32fd03c1]
+	37: /usr/local/lib/opencog/libexecution.so (°«…X4V +0x32dce) [0x7f0d32fdadce]
+	38: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x35) [0x7f0d38977bd5]
+	39: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::ProtoAtom>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x75) [0x7f0d38978775]
+	40: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x37) [0x7f0d38979067]
+	41: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xbf1a5) [0x7f0d41b081a5]
+	42: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+	43: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x29) [0x7f0d41a8fc69]
+	44: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x57) [0x7f0d41a8fcc7]
+	45: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x45) [0x7f0d41adeaf5]
+	46: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x5e9ee) [0x7f0d41aa79ee]
+	47: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x3f5fa) [0x7f0d41a885fa]
+	48: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xc683d) [0x7f0d41b0f83d]
+	49: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+
+[2018-07-26 10:30:45:348] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  7 (save-module-excursion _)
+  3822:12  6 (_)
+In unknown file:
+           5 (opencog-extension cog-execute! (#))
+           4 (apply-smob/1 #<catch-closure 563458134c40>)
+           3 (apply-smob/1 #<catch-closure 563458134ac0>)
+In opencog/rule-engine/rule-engine-utils.scm:
+    417:0  2 (has-dv _)
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 wrong-number-of-args (#f "Wrong number of â€¦" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 563458134a80> wrong-number-of-args #f â€¦)
+
+ERROR: In procedure apply-smob/1:
+Wrong number of arguments to #<procedure has-dv (A)>
+ABORT: wrong-number-of-args
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7f0d380cdbd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7f0d380cdd3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7f0d380bd21a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7f0d380bd2eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7f0d380bd3d0]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2fc) [0x7f0d38976a1c]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_evaluate(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0xbe9) [0x7f0d32fc2de9]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_eval_scratch(opencog::AtomSpace*, opencog::Handle const&, opencog::AtomSpace*, bool) +0x92a) [0x7f0d32fbff6a]
+	10: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_term(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x709) [0x7f0d32d59f69]
+	11: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_sentence(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x166) [0x7f0d32d5b346]
+	12: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x91) [0x7f0d32d83491]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	25: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	26: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	27: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	28: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0xca7) [0x7f0d32d68e97]
+	29: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xec) [0x7f0d32d6bdfc]
+	30: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x390e) [0x7f0d32d74cce]
+	31: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x72) [0x7f0d32d74f32]
+	32: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x193) [0x7f0d32d60f63]
+	33: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x186) [0x7f0d32d61a86]
+	34: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5cb) [0x7f0d32d92dfb]
+	35: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1fe3) [0x7f0d32fcf9d3]
+	36: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7f0d32fd03c1]
+	37: /usr/local/lib/opencog/libexecution.so (°«…X4V +0x32dce) [0x7f0d32fdadce]
+	38: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x35) [0x7f0d38977bd5]
+	39: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::ProtoAtom>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x75) [0x7f0d38978775]
+	40: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x37) [0x7f0d38979067]
+	41: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xbf1a5) [0x7f0d41b081a5]
+	42: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+	43: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x29) [0x7f0d41a8fc69]
+	44: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x57) [0x7f0d41a8fcc7]
+	45: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x45) [0x7f0d41adeaf5]
+	46: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x5e9ee) [0x7f0d41aa79ee]
+	47: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x3f5fa) [0x7f0d41a885fa]
+	48: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xc683d) [0x7f0d41b0f83d]
+	49: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+
+[2018-07-26 10:32:55:261] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  8 (save-module-excursion _)
+  3822:12  7 (_)
+In bayesnet.scm:
+     56:0  6 (_)
+In unknown file:
+           5 (opencog-extension cog-execute! (#))
+           4 (apply-smob/1 #<catch-closure 56345818e520>)
+           3 (apply-smob/1 #<catch-closure 56345818e4a0>)
+In opencog/rule-engine/rule-engine-utils.scm:
+    417:0  2 (has-dv _)
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 wrong-number-of-args (#f "Wrong number of â€¦" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 56345818e440> wrong-number-of-args #f â€¦)
+
+ERROR: In procedure apply-smob/1:
+Wrong number of arguments to #<procedure has-dv (A)>
+ABORT: wrong-number-of-args
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7f0d380cdbd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7f0d380cdd3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7f0d380bd21a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7f0d380bd2eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7f0d380bd3d0]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2fc) [0x7f0d38976a1c]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_evaluate(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0xbe9) [0x7f0d32fc2de9]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_eval_scratch(opencog::AtomSpace*, opencog::Handle const&, opencog::AtomSpace*, bool) +0x92a) [0x7f0d32fbff6a]
+	10: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_term(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x709) [0x7f0d32d59f69]
+	11: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_sentence(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x166) [0x7f0d32d5b346]
+	12: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x91) [0x7f0d32d83491]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	25: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	26: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	27: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0xca7) [0x7f0d32d68e97]
+	28: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xec) [0x7f0d32d6bdfc]
+	29: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x390e) [0x7f0d32d74cce]
+	30: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x72) [0x7f0d32d74f32]
+	31: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x193) [0x7f0d32d60f63]
+	32: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x186) [0x7f0d32d61a86]
+	33: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5cb) [0x7f0d32d92dfb]
+	34: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1fe3) [0x7f0d32fcf9d3]
+	35: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7f0d32fd03c1]
+	36: /usr/local/lib/opencog/libexecution.so (°«…X4V +0x32dce) [0x7f0d32fdadce]
+	37: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x35) [0x7f0d38977bd5]
+	38: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::ProtoAtom>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x75) [0x7f0d38978775]
+	39: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x37) [0x7f0d38979067]
+	40: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xbf1a5) [0x7f0d41b081a5]
+	41: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+	42: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x29) [0x7f0d41a8fc69]
+	43: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x57) [0x7f0d41a8fcc7]
+	44: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x45) [0x7f0d41adeaf5]
+	45: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x5e9ee) [0x7f0d41aa79ee]
+	46: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x3f5fa) [0x7f0d41a885fa]
+	47: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xc683d) [0x7f0d41b0f83d]
+	48: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+	49: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xb779b) [0x7f0d41b0079b]
+
+[2018-07-26 10:33:07:667] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  7 (save-module-excursion _)
+  3822:12  6 (_)
+In unknown file:
+           5 (opencog-extension cog-execute! (#))
+           4 (apply-smob/1 #<catch-closure 563458223a80>)
+           3 (apply-smob/1 #<catch-closure 563458223a00>)
+In opencog/rule-engine/rule-engine-utils.scm:
+    417:0  2 (has-dv _)
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 wrong-number-of-args (#f "Wrong number of â€¦" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 5634582239c0> wrong-number-of-args #f â€¦)
+
+ERROR: In procedure apply-smob/1:
+Wrong number of arguments to #<procedure has-dv (A)>
+ABORT: wrong-number-of-args
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7f0d380cdbd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7f0d380cdd3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7f0d380bd21a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7f0d380bd2eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7f0d380bd3d0]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2fc) [0x7f0d38976a1c]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_evaluate(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0xbe9) [0x7f0d32fc2de9]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_eval_scratch(opencog::AtomSpace*, opencog::Handle const&, opencog::AtomSpace*, bool) +0x92a) [0x7f0d32fbff6a]
+	10: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_term(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x709) [0x7f0d32d59f69]
+	11: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_sentence(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x166) [0x7f0d32d5b346]
+	12: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x91) [0x7f0d32d83491]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f0d32d81f70]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f0d32d8251b]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f0d32d82c6b]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f0d32d82d0c]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f0d32d830e1]
+	25: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f0d32d83263]
+	26: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f0d32d83543]
+	27: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0xca7) [0x7f0d32d68e97]
+	28: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xec) [0x7f0d32d6bdfc]
+	29: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x390e) [0x7f0d32d74cce]
+	30: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x72) [0x7f0d32d74f32]
+	31: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x193) [0x7f0d32d60f63]
+	32: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x186) [0x7f0d32d61a86]
+	33: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5cb) [0x7f0d32d92dfb]
+	34: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1fe3) [0x7f0d32fcf9d3]
+	35: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7f0d32fd03c1]
+	36: /usr/local/lib/opencog/libexecution.so (°«…X4V +0x32dce) [0x7f0d32fdadce]
+	37: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x35) [0x7f0d38977bd5]
+	38: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::ProtoAtom>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x75) [0x7f0d38978775]
+	39: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x37) [0x7f0d38979067]
+	40: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xbf1a5) [0x7f0d41b081a5]
+	41: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+	42: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x29) [0x7f0d41a8fc69]
+	43: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x57) [0x7f0d41a8fcc7]
+	44: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x45) [0x7f0d41adeaf5]
+	45: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x5e9ee) [0x7f0d41aa79ee]
+	46: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x3f5fa) [0x7f0d41a885fa]
+	47: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xc683d) [0x7f0d41b0f83d]
+	48: /usr/lib/libguile-2.2.so.1 (°«…X4V +0x18b) [0x7f0d41b1210b]
+	49: /usr/lib/libguile-2.2.so.1 (°«…X4V +0xb779b) [0x7f0d41b0079b]
+
+[2018-07-26 10:39:56:346] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  8 (save-module-excursion #<procedure 55703c4342a0 at ice-9/boot-9.scmâ€¦>)
+  3822:12  7 (_)
+In unknown file:
+           6 (opencog-extension cog-execute! (#))
+           5 (apply-smob/1 #<catch-closure 55703c876ee0>)
+           4 (apply-smob/1 #<catch-closure 55703c876e60>)
+In /home/roman/OpenCog/opencog/examples/pln/dv/dv-bayes-net/../../../../opencog/pln/rules/dv/wip/modus-ponens.scm:
+    69:30  3 (modus-ponens-formula (ConceptNode "Grass Wet")
+ _ _)
+In unknown file:
+           2 (cog-cdv-get-unconditional # ())
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 wrong-type-arg ("cog-cdv-get-unconditional" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 55703c876e20> wrong-type-arg "cog-cdâ€¦" â€¦)
+
+ERROR: In procedure apply-smob/1:
+In procedure cog-cdv-get-unconditional: Wrong type argument in position 2 (expecting opencog distributional value): ()
+ABORT: wrong-type-arg
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7f2d63501bd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7f2d63501d3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7f2d634f121a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7f2d634f12eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7f2d634f13d0]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2fc) [0x7f2d63daaa1c]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::do_execute(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0x626) [0x7f2d5e3fd226]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::execute(opencog::AtomSpace*, bool) const +0x4db) [0x7f2d5e3fea9b]
+	10: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x196e) [0x7f2d5e40335e]
+	11: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7f2d5e4043c1]
+	12: /usr/local/lib/opencog/libquery.so (opencog::Implicator::grounding(std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x56) [0x7f2d5e196226]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x44d) [0x7f2d5e1b619d]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f2d5e1b5f70]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f2d5e1b651b]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f2d5e1b6c6b]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f2d5e1b6d0c]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f2d5e1b70e1]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f2d5e1b7263]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f2d5e1b7543]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7f2d5e1b5f70]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7f2d5e1b651b]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7f2d5e1b6c6b]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7f2d5e1b6d0c]
+	25: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7f2d5e1b70e1]
+	26: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7f2d5e1b7263]
+	27: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7f2d5e1b7543]
+	28: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0xca7) [0x7f2d5e19ce97]
+	29: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xec) [0x7f2d5e19fdfc]
+	30: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x390e) [0x7f2d5e1a8cce]
+	31: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x72) [0x7f2d5e1a8f32]
+	32: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x193) [0x7f2d5e194f63]
+	33: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x186) [0x7f2d5e195a86]
+	34: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5cb) [0x7f2d5e1c6dfb]
+	35: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1fe3) [0x7f2d5e4039d3]
+	36: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7f2d5e4043c1]
+	37: /usr/local/lib/opencog/libexecution.so (€Ž©<pU +0x32dce) [0x7f2d5e40edce]
+	38: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x35) [0x7f2d63dabbd5]
+	39: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::ProtoAtom>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x75) [0x7f2d63dac775]
+	40: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x37) [0x7f2d63dad067]
+	41: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0xbf1a5) [0x7f2d6cf3c1a5]
+	42: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x18b) [0x7f2d6cf4610b]
+	43: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x29) [0x7f2d6cec3c69]
+	44: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x57) [0x7f2d6cec3cc7]
+	45: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x45) [0x7f2d6cf12af5]
+	46: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x5e9ee) [0x7f2d6cedb9ee]
+	47: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x3f5fa) [0x7f2d6cebc5fa]
+	48: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0xc683d) [0x7f2d6cf4383d]
+	49: /usr/lib/libguile-2.2.so.1 (€Ž©<pU +0x18b) [0x7f2d6cf4610b]
+
+[2018-07-26 10:43:07:303] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  8 (save-module-excursion _)
+  3822:12  7 (_)
+In unknown file:
+           6 (opencog-extension cog-execute! (#))
+           5 (apply-smob/1 #<catch-closure 559400ad4c20>)
+           4 (apply-smob/1 #<catch-closure 559400ad4b20>)
+In /home/roman/OpenCog/opencog/examples/pln/dv/dv-bayes-net/../../../../opencog/pln/rules/dv/wip/modus-ponens.scm:
+    69:30  3 (modus-ponens-formula (ConceptNode "Grass Wet")
+ _ _)
+In unknown file:
+           2 (cog-cdv-get-unconditional # ())
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 wrong-type-arg ("cog-cdv-get-unconditional" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 559400ad4aa0> wrong-type-arg "cog-cdâ€¦" â€¦)
+
+ERROR: In procedure apply-smob/1:
+In procedure cog-cdv-get-unconditional: Wrong type argument in position 2 (expecting opencog distributional value): ()
+ABORT: wrong-type-arg
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7fcdbcbc4bd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7fcdbcbc4d3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7fcdbcbb421a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7fcdbcbb42eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7fcdbcbb43d0]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2fc) [0x7fcdbd46da1c]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::do_execute(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0x626) [0x7fcdb3ab1226]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::execute(opencog::AtomSpace*, bool) const +0x4db) [0x7fcdb3ab2a9b]
+	10: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x196e) [0x7fcdb3ab735e]
+	11: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7fcdb3ab83c1]
+	12: /usr/local/lib/opencog/libquery.so (opencog::Implicator::grounding(std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x56) [0x7fcdb384a226]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x44d) [0x7fcdb386a19d]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7fcdb3869f70]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7fcdb386a51b]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7fcdb386ac6b]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7fcdb386ad0c]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7fcdb386b0e1]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7fcdb386b263]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7fcdb386b543]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x220) [0x7fcdb3869f70]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x7b) [0x7fcdb386a51b]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30b) [0x7fcdb386ac6b]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x5c) [0x7fcdb386ad0c]
+	25: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x111) [0x7fcdb386b0e1]
+	26: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x153) [0x7fcdb386b263]
+	27: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x143) [0x7fcdb386b543]
+	28: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0xca7) [0x7fcdb3850e97]
+	29: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xec) [0x7fcdb3853dfc]
+	30: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x390e) [0x7fcdb385ccce]
+	31: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x72) [0x7fcdb385cf32]
+	32: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x193) [0x7fcdb3848f63]
+	33: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x186) [0x7fcdb3849a86]
+	34: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5cb) [0x7fcdb387adfb]
+	35: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1fe3) [0x7fcdb3ab79d3]
+	36: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x541) [0x7fcdb3ab83c1]
+	37: /usr/local/lib/opencog/libexecution.so ( +0x32dce) [0x7fcdb3ac2dce]
+	38: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x35) [0x7fcdbd46ebd5]
+	39: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::ProtoAtom>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x75) [0x7fcdbd46f775]
+	40: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x37) [0x7fcdbd470067]
+	41: /usr/lib/libguile-2.2.so.1 ( +0xbf1a5) [0x7fcdc65ff1a5]
+	42: /usr/lib/libguile-2.2.so.1 ( +0x18b) [0x7fcdc660910b]
+	43: /usr/lib/libguile-2.2.so.1 ( +0x29) [0x7fcdc6586c69]
+	44: /usr/lib/libguile-2.2.so.1 ( +0x57) [0x7fcdc6586cc7]
+	45: /usr/lib/libguile-2.2.so.1 ( +0x45) [0x7fcdc65d5af5]
+	46: /usr/lib/libguile-2.2.so.1 ( +0x5e9ee) [0x7fcdc659e9ee]
+	47: /usr/lib/libguile-2.2.so.1 ( +0x3f5fa) [0x7fcdc657f5fa]
+	48: /usr/lib/libguile-2.2.so.1 ( +0xc683d) [0x7fcdc660683d]
+	49: /usr/lib/libguile-2.2.so.1 ( +0x18b) [0x7fcdc660910b]
+
+[2018-07-26 16:14:47:180] [ERROR] Can't handle that case. (/home/roman/OpenCog/atomspace/opencog/truthvalue/DistributionalValue.cc:143)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0x104) [0x7fe58b938bd4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x9e) [0x7fe58b938d3e]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x9a) [0x7fe58b92821a]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xbb) [0x7fe58b9282eb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xc0) [0x7fe58b9283d0]
+	7: /usr/local/lib/opencog/libtruthvalue.so (opencog::DistributionalValue::intervalDist(opencog::Handle, opencog::Handle) +0x605) [0x7fe58adabc55]
+	8: /usr/local/lib/opencog/libtruthvalue.so (opencog::ConditionalDV::getUnconditionalNoMatch(opencog::Handle) const +0x20a) [0x7fe58adb767a]
+	9: /usr/local/lib/opencog/libtruthvalue.so (opencog::ConditionalDV::getJointProbability(std::shared_ptr<opencog::DistributionalValue const>) const +0x286) [0x7fe58adb8296]
+	10: /usr/local/lib/opencog/libsmob.so (opencog::SchemeSmob::ss_cdv_get_joint(scm_unused_struct*, scm_unused_struct*) +0x8f) [0x7fe58c1ed85f]
+	11: /usr/lib/libguile-2.2.so.1 ( +0xbf1a5) [0x7fe5953731a5]
+	12: /usr/lib/libguile-2.2.so.1 ( +0x18b) [0x7fe59537d10b]
+	13: /usr/lib/libguile-2.2.so.1 ( +0x29) [0x7fe5952fac69]
+	14: /usr/lib/libguile-2.2.so.1 ( +0x57) [0x7fe5952facc7]
+	15: /usr/lib/libguile-2.2.so.1 ( +0x45) [0x7fe595349af5]
+	16: /usr/lib/libguile-2.2.so.1 ( +0x5e9ee) [0x7fe5953129ee]
+	17: /usr/lib/libguile-2.2.so.1 ( +0x3f5fa) [0x7fe5952f35fa]
+	18: /usr/lib/libguile-2.2.so.1 ( +0xc683d) [0x7fe59537a83d]
+	19: /usr/lib/libguile-2.2.so.1 ( +0x18b) [0x7fe59537d10b]
+	20: /usr/lib/libguile-2.2.so.1 ( +0xb779b) [0x7fe59536b79b]
+	21: /usr/lib/libguile-2.2.so.1 ( +0x3fc32) [0x7fe5952f3c32]
+	22: /usr/lib/libguile-2.2.so.1 ( +0x46) [0x7fe5952f3d16]
+	23: /usr/lib/libguile-2.2.so.1 ( +0xb61dd) [0x7fe59536a1dd]
+	24: /usr/lib/libgc.so.1 ( +0x25) [0x7fe594a84855]
+	25: /usr/lib/libguile-2.2.so.1 ( +0x39) [0x7fe59536a559]
+	26: /usr/lib/libguile-2.2.so.1 ( +0x54) [0x7fe595312be4]
+	27: guile ( +0x993) [0x55e994333993]
+	28: /usr/lib/libc.so.6 ( +0xeb) [0x7fe594cfd06b]
+	29: guile ( +0xa4a) [0x55e994333a4a]
+
+[2018-12-03 09:31:18:645] [ERROR] The Divisor DV has to have exaclty 1 less dimensions then then dividend. This is not the case. (/home/roman/OpenCog/atomspace/opencog/truthvalue/DVFormulas.cc:63)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0xc4) [0x7f57377093f4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x92) [0x7f5737709542]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x89) [0x7f57376f9179]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xab) [0x7f57376f922b]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xb4) [0x7f57376f9374]
+	7: /usr/local/lib/opencog/libtruthvalue.so (opencog::DVFormulas::joint_to_cdv(std::shared_ptr<opencog::DistributionalValue const>, std::shared_ptr<opencog::DistributionalValue const>, int) +0x1437) [0x7f57375ab027]
+	8: /usr/local/lib/opencog/libsmob.so (opencog::SchemeSmob::ss_dv_divide(scm_unused_struct*, scm_unused_struct*, scm_unused_struct*) +0xb9) [0x7f57377c7a39]
+	9: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0xbfc45) [0x7f573f220c45]
+	10: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x19a) [0x7f573f22a98a]
+	11: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x29) [0x7f573f1a7af9]
+	12: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x57) [0x7f573f1a7b57]
+	13: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0xbfc45) [0x7f573f220c45]
+	14: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x19a) [0x7f573f22a98a]
+	15: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0xb7dd3) [0x7f573f218dd3]
+	16: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::do_scm_eval(scm_unused_struct*, scm_unused_struct* (*)(void*)) +0xc7) [0x7f57377bb9e7]
+	17: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::do_apply_scm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle const&) +0x218) [0x7f57377bc458]
+	18: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::c_wrap_apply_v(void*) +0x1b) [0x7f57377bc8cb]
+	19: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x3f41a) [0x7f573f1a041a]
+	20: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0xbfc45) [0x7f573f220c45]
+	21: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x19a) [0x7f573f22a98a]
+	22: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0xb7dd3) [0x7f573f218dd3]
+	23: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x3fa42) [0x7f573f1a0a42]
+	24: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x46) [0x7f573f1a0b26]
+	25: /usr/lib/libgc.so.1 (@ÞÄ–¤U +0x25) [0x7f573ef24765]
+	26: /usr/lib/libguile-2.2.so.1 (@ÞÄ–¤U +0x39) [0x7f573f217bc9]
+	27: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x11d) [0x7f57377bc6bd]
+	28: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::do_execute(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0x816) [0x7f5734741006]
+	29: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::execute(opencog::AtomSpace*, bool) const +0x4cb) [0x7f573474243b]
+	30: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1a2b) [0x7f573474734b]
+	31: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x539) [0x7f5734748419]
+	32: /usr/local/lib/opencog/libquery.so (opencog::Implicator::grounding(std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x47) [0x7f57346d8c97]
+	33: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x445) [0x7f57346f8c35]
+	34: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f57346f8a04]
+	35: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f57346f8a04]
+	36: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f57346f8a04]
+	37: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x6f) [0x7f57346f8f5f]
+	38: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30d) [0x7f57346f96ad]
+	39: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x4d) [0x7f57346f974d]
+	40: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x101) [0x7f57346f9b11]
+	41: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x12c) [0x7f57346f9c6c]
+	42: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x133) [0x7f57346f9e43]
+	43: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f57346f8a04]
+	44: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x6f) [0x7f57346f8f5f]
+	45: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30d) [0x7f57346f96ad]
+	46: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x4d) [0x7f57346f974d]
+	47: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x101) [0x7f57346f9b11]
+	48: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x12c) [0x7f57346f9c6c]
+	49: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x133) [0x7f57346f9e43]
+
+[2018-12-03 09:33:18:929] [ERROR] The Divisor DV has to have exaclty 1 less dimensions then then dividend. This is not the case. (/home/roman/OpenCog/atomspace/opencog/truthvalue/DVFormulas.cc:63)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0xc4) [0x7f1ffc4e43f4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x92) [0x7f1ffc4e4542]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x89) [0x7f1ffc4d4179]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xab) [0x7f1ffc4d422b]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xb4) [0x7f1ffc4d4374]
+	7: /usr/local/lib/opencog/libtruthvalue.so (opencog::DVFormulas::joint_to_cdv(std::shared_ptr<opencog::DistributionalValue const>, std::shared_ptr<opencog::DistributionalValue const>, int) +0x1437) [0x7f1ffc386027]
+	8: /usr/local/lib/opencog/libsmob.so (opencog::SchemeSmob::ss_dv_divide(scm_unused_struct*, scm_unused_struct*, scm_unused_struct*) +0xb9) [0x7f1ffc5a2a39]
+	9: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0xbfc45) [0x7f2003ffbc45]
+	10: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x19a) [0x7f200400598a]
+	11: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x29) [0x7f2003f82af9]
+	12: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x57) [0x7f2003f82b57]
+	13: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0xbfc45) [0x7f2003ffbc45]
+	14: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x19a) [0x7f200400598a]
+	15: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0xb7dd3) [0x7f2003ff3dd3]
+	16: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::do_scm_eval(scm_unused_struct*, scm_unused_struct* (*)(void*)) +0xc7) [0x7f1ffc5969e7]
+	17: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::do_apply_scm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle const&) +0x218) [0x7f1ffc597458]
+	18: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::c_wrap_apply_v(void*) +0x1b) [0x7f1ffc5978cb]
+	19: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x3f41a) [0x7f2003f7b41a]
+	20: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0xbfc45) [0x7f2003ffbc45]
+	21: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x19a) [0x7f200400598a]
+	22: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0xb7dd3) [0x7f2003ff3dd3]
+	23: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x3fa42) [0x7f2003f7ba42]
+	24: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x46) [0x7f2003f7bb26]
+	25: /usr/lib/libgc.so.1 (0lÞÔV +0x25) [0x7f2003cff765]
+	26: /usr/lib/libguile-2.2.so.1 (0lÞÔV +0x39) [0x7f2003ff2bc9]
+	27: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x11d) [0x7f1ffc5976bd]
+	28: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::do_execute(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0x816) [0x7f1ff951c006]
+	29: /usr/local/lib/opencog/libexecution.so (opencog::ExecutionOutputLink::execute(opencog::AtomSpace*, bool) const +0x4cb) [0x7f1ff951d43b]
+	30: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x1a2b) [0x7f1ff952234b]
+	31: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x539) [0x7f1ff9523419]
+	32: /usr/local/lib/opencog/libquery.so (opencog::Implicator::grounding(std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x47) [0x7f1ff94b3c97]
+	33: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x445) [0x7f1ff94d3c35]
+	34: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f1ff94d3a04]
+	35: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f1ff94d3a04]
+	36: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f1ff94d3a04]
+	37: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x6f) [0x7f1ff94d3f5f]
+	38: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30d) [0x7f1ff94d46ad]
+	39: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x4d) [0x7f1ff94d474d]
+	40: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x101) [0x7f1ff94d4b11]
+	41: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x12c) [0x7f1ff94d4c6c]
+	42: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x133) [0x7f1ff94d4e43]
+	43: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f1ff94d3a04]
+	44: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x6f) [0x7f1ff94d3f5f]
+	45: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30d) [0x7f1ff94d46ad]
+	46: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x4d) [0x7f1ff94d474d]
+	47: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_link_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x101) [0x7f1ff94d4b11]
+	48: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x12c) [0x7f1ff94d4c6c]
+	49: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x133) [0x7f1ff94d4e43]
+
+[2018-12-17 11:09:16:104] [ERROR] Backtrace:
+In ice-9/boot-9.scm:
+   2312:4  8 (save-module-excursion _)
+  3831:12  7 (_)
+In bayesnet.scm:
+     61:0  6 (_)
+In unknown file:
+           5 (opencog-extension cog-execute! (#))
+           4 (apply-smob/1 #<catch-closure 563798ae68a0>)
+           3 (apply-smob/1 #<catch-closure 563798ae6820>)
+In opencog/rule-engine/rule-engine-utils.scm:
+    426:8  2 (has-dv _)
+In ice-9/boot-9.scm:
+   751:25  1 (dispatch-exception 0 unbound-variable ("module-looâ€¦" â€¦))
+In unknown file:
+           0 (apply-smob/1 #<catch-closure 563798ae67e0> # "moduleâ€¦" â€¦)
+
+ERROR: In procedure apply-smob/1:
+In procedure module-lookup: Unbound variable: cog-dv?
+ABORT: unbound-variable
+ (/home/roman/OpenCog/atomspace/opencog/guile/SchemeEval.cc:1068)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0xc4) [0x7f1900fdc9c4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x92) [0x7f1900fdcb12]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x89) [0x7f1900fcc309]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xab) [0x7f1900fcc3bb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xb4) [0x7f1900fcc504]
+	7: /usr/local/lib/opencog/libsmob.so (opencog::SchemeEval::apply_v(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, opencog::Handle) +0x2ec) [0x7f190108c0bc]
+	8: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_evaluate(opencog::AtomSpace*, opencog::Handle const&, opencog::Handle const&, bool) +0xc96) [0x7f18fe02f976]
+	9: /usr/local/lib/opencog/libexecution.so (opencog::EvaluationLink::do_eval_scratch(opencog::AtomSpace*, opencog::Handle const&, opencog::AtomSpace*, bool) +0x91a) [0x7f18fe02ca7a]
+	10: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_term(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x6f9) [0x7f18fdfc4e49]
+	11: /usr/local/lib/opencog/libquery.so (opencog::DefaultPatternMatchCB::eval_sentence(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&) +0x15e) [0x7f18fdfc621e]
+	12: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x82) [0x7f18fdfedc52]
+	13: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f18fdfec914]
+	14: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x6a) [0x7f18fdfece6a]
+	15: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30d) [0x7f18fdfed57d]
+	16: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x46) [0x7f18fdfed616]
+	17: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x12c) [0x7f18fdfedb2c]
+	18: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x133) [0x7f18fdfedd03]
+	19: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_next_clause() +0x214) [0x7f18fdfec914]
+	20: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::do_term_up(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x6a) [0x7f18fdfece6a]
+	21: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_single_branch(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x30d) [0x7f18fdfed57d]
+	22: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_choice_branches(std::shared_ptr<opencog::PatternTerm> const&, opencog::Handle const&, opencog::Handle const&) +0x46) [0x7f18fdfed616]
+	23: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_term_branches(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x12c) [0x7f18fdfedb2c]
+	24: /usr/local/lib/opencog/libquery.so (opencog::PatternMatchEngine::explore_clause(opencog::Handle const&, opencog::Handle const&, opencog::Handle const&) +0x133) [0x7f18fdfedd03]
+	25: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::link_type_search(opencog::PatternMatchEngine*) +0x5e4) [0x7f18fdfd2d64]
+	26: /usr/local/lib/opencog/libquery.so (opencog::InitiateSearchCB::initiate_search(opencog::PatternMatchEngine*) +0xd4) [0x7f18fdfd5b94]
+	27: /usr/local/lib/opencog/libquery.so (opencog::PatternLink::satisfy(opencog::PatternMatchCallback&) const +0x38ee) [0x7f18fdfdf77e]
+	28: /usr/local/lib/opencog/libquery.so (opencog::BindLink::imply(opencog::PatternMatchCallback&, opencog::AtomSpace*, bool) +0x66) [0x7f18fdfdf9d6]
+	29: /usr/local/lib/opencog/libquery.so (opencog::do_imply(opencog::AtomSpace*, opencog::Handle const&, opencog::Implicator&, bool) +0x183) [0x7f18fdfcb773]
+	30: /usr/local/lib/opencog/libquery.so (opencog::bindlink(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x17a) [0x7f18fdfcc28a]
+	31: /usr/local/lib/opencog/libquery.so (opencog::satisfying_set(opencog::AtomSpace*, opencog::Handle const&, unsigned long) +0x5bb) [0x7f18fdffca1b]
+	32: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::walk_tree(opencog::Handle const&, bool) +0x222e) [0x7f18fe03bc2e]
+	33: /usr/local/lib/opencog/libexecution.so (opencog::Instantiator::instantiate(opencog::Handle const&, std::map<opencog::Handle, opencog::Handle, std::less<opencog::Handle>, std::allocator<std::pair<opencog::Handle const, opencog::Handle> > > const&, bool) +0x539) [0x7f18fe03c679]
+	34: /usr/local/lib/opencog/libexecution.so (p™7V +0x32c22) [0x7f18fe046c22]
+	35: /usr/local/lib/opencog/libsmob.so (opencog::FunctionWrap::as_wrapper_v_h(opencog::Handle) +0x22) [0x7f190108d132]
+	36: /usr/local/lib/opencog/libsmob.so (opencog::SchemePrimitive<std::shared_ptr<opencog::Value>, opencog::FunctionWrap, opencog::Handle>::invoke(scm_unused_struct*) +0x66) [0x7f190108dbb6]
+	37: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x28) [0x7f190108e438]
+	38: /usr/lib/libguile-2.2.so.1 (p™7V +0xbfc45) [0x7f1908ae7c45]
+	39: /usr/lib/libguile-2.2.so.1 (p™7V +0x19a) [0x7f1908af198a]
+	40: /usr/lib/libguile-2.2.so.1 (p™7V +0x29) [0x7f1908a6eaf9]
+	41: /usr/lib/libguile-2.2.so.1 (p™7V +0x57) [0x7f1908a6eb57]
+	42: /usr/lib/libguile-2.2.so.1 (p™7V +0x45) [0x7f1908abdfb5]
+	43: /usr/lib/libguile-2.2.so.1 (p™7V +0x5e8de) [0x7f1908a868de]
+	44: /usr/lib/libguile-2.2.so.1 (p™7V +0x3f41a) [0x7f1908a6741a]
+	45: /usr/lib/libguile-2.2.so.1 (p™7V +0xc4050) [0x7f1908aec050]
+	46: /usr/lib/libguile-2.2.so.1 (p™7V +0x19a) [0x7f1908af198a]
+	47: /usr/lib/libguile-2.2.so.1 (p™7V +0xb7dd3) [0x7f1908adfdd3]
+	48: /usr/lib/libguile-2.2.so.1 (p™7V +0x3fa42) [0x7f1908a67a42]
+	49: /usr/lib/libguile-2.2.so.1 (p™7V +0x46) [0x7f1908a67b26]
+
+[2019-01-15 15:12:26:722] [ERROR] DVs and Conds must be the same lenght. (/home/roman/OpenCog/atomspace2/opencog/atoms/distvalue/ConditionalDV.cc:61)
+	Stack Trace:
+	2: /usr/local/lib/libcogutil.so (opencog::Logger::logva(opencog::Logger::Level, char const*, __va_list_tag*) +0xc4) [0x7f14cbae59c4]
+	3: /usr/local/lib/libcogutil.so (opencog::Logger::Error::operator()(char const*, ...) +0x92) [0x7f14cbae5b12]
+	4: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, __va_list_tag*, bool) +0x89) [0x7f14cbad5309]
+	5: /usr/local/lib/libcogutil.so (opencog::StandardException::parse_error_message(char const*, char const*, __va_list_tag*, bool) +0xab) [0x7f14cbad53bb]
+	6: /usr/local/lib/libcogutil.so (opencog::RuntimeException::RuntimeException(char const*, char const*, ...) +0xb4) [0x7f14cbad5504]
+	7: /usr/local/lib/opencog/libdistvalue.so (opencog::ConditionalDV::ConditionalDV(std::vector<std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::allocator<std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > > > const&, std::vector<std::shared_ptr<opencog::DistributionalValue const>, std::allocator<std::shared_ptr<opencog::DistributionalValue const> > > const&) +0x349) [0x7f14c8140aa9]
+	8: /usr/local/lib/opencog/libdistvalue.so (opencog::ConditionalDV::createCDV(std::vector<std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >, std::allocator<std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > > > const&, std::vector<std::shared_ptr<opencog::DistributionalValue const>, std::allocator<std::shared_ptr<opencog::DistributionalValue const> > > const&) +0x5a) [0x7f14c8140b5a]
+	9: /usr/local/lib/opencog/libdistvalue.so (opencog::DistributionalValueSCM::ss_new_cdv(scm_unused_struct*, scm_unused_struct*) +0x63) [0x7f14c8150483]
+	10: /usr/local/lib/opencog/libsmob.so (opencog::PrimitiveEnviron::do_call(scm_unused_struct*, scm_unused_struct*) +0x28) [0x7f14cbb984d8]
+	11: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xc0195) [0x7f14d31f9195]
+	12: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x19a) [0x7f14d3202eda]
+	13: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x7d) [0x7f14d317f1dd]
+	14: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x27) [0x7f14d317d077]
+	15: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xc0195) [0x7f14d31f9195]
+	16: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x19a) [0x7f14d3202eda]
+	17: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x29) [0x7f14d3180049]
+	18: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xed) [0x7f14d319dfdd]
+	19: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xc0195) [0x7f14d31f9195]
+	20: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x19a) [0x7f14d3202eda]
+	21: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x29) [0x7f14d3180049]
+	22: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x57) [0x7f14d31800a7]
+	23: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x45) [0x7f14d31cf505]
+	24: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x5ee2e) [0x7f14d3197e2e]
+	25: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x3f96a) [0x7f14d317896a]
+	26: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xc45a0) [0x7f14d31fd5a0]
+	27: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x19a) [0x7f14d3202eda]
+	28: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xb8323) [0x7f14d31f1323]
+	29: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x3ff92) [0x7f14d3178f92]
+	30: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x46) [0x7f14d3179076]
+	31: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0xb6d2f) [0x7f14d31efd2f]
+	32: /usr/lib/libgc.so.1 (ÐSÁ|U +0x25) [0x7f14d2efc765]
+	33: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x39) [0x7f14d31f0119]
+	34: /usr/lib/libguile-2.2.so.1 (ÐSÁ|U +0x54) [0x7f14d3198024]
+	35: guile (ÐSÁ|U +0x1093) [0x557c0da14093]
+	36: /usr/lib/libc.so.6 (ÐSÁ|U +0xf3) [0x7f14d2f78223]
+	37: guile (ÐSÁ|U +0x114e) [0x557c0da1414e]
+

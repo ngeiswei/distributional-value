@@ -264,11 +264,12 @@ DVFormulas::deduction(ConditionalDVPtr cdv1,ConditionalDVPtr cdv2)
 {
 	auto conds = cdv1->get_conditions();
 	auto unconds = cdv1->get_unconditionals();
+	std::vector<DistributionalValuePtr> res;
 	for (auto elem : unconds)
 	{
-		elem = cdv2->get_unconditional(elem);
+		res.push_back(cdv2->get_unconditional(elem));
 	}
-	return ConditionalDV::createCDV(conds,unconds);
+	return ConditionalDV::createCDV(conds,res);
 }
 
 #if 0

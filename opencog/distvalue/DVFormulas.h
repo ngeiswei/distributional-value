@@ -30,8 +30,8 @@
 #include <vector>
 #include <limits>
 
-#include <opencog/atoms/distvalue/ConditionalDV.h>
-#include <opencog/atoms/distvalue/DistributionalValue.h>
+#include <opencog/distvalue/ConditionalDV.h>
+#include <opencog/distvalue/DistributionalValue.h>
 
 /** \addtogroup grp_atomspace
  *	@{

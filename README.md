@@ -20,12 +20,13 @@ For this to work efficiently we have a couple of requirements that our implement
  - Low complexity for finding a given bin. Iterating over all bins would be to slow.
 
  - Being able to incrementally built the Histogram. As we can't store all observations we need to immediately include them in the corresponding Histograms. The difficulty here is that we need to be able to move bins around easily.
+ 
+To reduce the complexity of algorithms working with this representation it is better to only store the centers of bins instead of proper Intervals as is common with Histograms. With this simplification and the requirements above it's more accurate to say that we are looking for a clustering algorithm with each bin corresponding to a cluster.
 
 CoverTree
 ---------
 
 Our base data Structure is a CoverTree. CoverTrees are designed to speed up nearest neighbor search. If we compare them to our requirements above we can see that they are all fulfilled. They are linear in size and because CoverTrees require only a distance metric to construct they work well in N-dimensions. The efficient nearest neighbor search allows us to quickly find a bin. And when we have to move a bin while incrementally building the Histogram this is doable. Since we move the bins only slightly (if we add a new data point it could move the bin closest to it in it's direction) in the normal case this should be doable without requiring a change in the trees structure, in the worst case it would only require a sub-section of the tree to moved or reinserted.
-
 
 More detailed information can be found in the paper "Faster Cover Trees" by Mike Izbicki and Christian R. Shelton
 https://izbicki.me/public/papers/icml2015-faster-cover-trees.pdf

@@ -31,7 +31,7 @@
 #include <limits>
 
 #include <opencog/atoms/value/Value.h>
-#include <opencog/atoms/distvalue/CTHist.h>
+#include <opencog/distvalue/CTHist.h>
 #include <opencog/util/Counter.h>
 
 /** \addtogroup grp_atomspace
@@ -47,7 +47,7 @@ typedef double count_t;
 
 class DistributionalValue;
 
-typedef std::shared_ptr<const DistributionalValue> DistributionalValuePtr;
+typedef std::shared_ptr<DistributionalValue> DistributionalValuePtr;
 
 class AtomSpace;
 class ConditionalDV;
@@ -69,8 +69,7 @@ public:
 	DistributionalValue();
 	DistributionalValue(size_t,size_t);
 	DistributionalValue(const CTHist<double>&);
-	//Create a DV from mean and count
-	DistributionalValue(double, double, bool = false);
+	DistributionalValue(double,double,bool);
 
 	const CTHist<double>& value() const { return _value; }
 	CTHist<double>& value() { return _value; }
@@ -81,8 +80,8 @@ public:
 	static DistributionalValuePtr DEFAULT_TV();
 
 	static DistributionalValuePtr createDV(size_t, size_t);
-	static DistributionalValuePtr createDV(double, double);
 	static DistributionalValuePtr createDV(const CTHist<double>&);
+	static DistributionalValuePtr createDV(double, double, bool);
 
 	//Utility functions to convert between confidence and count
 	//Should this be moved elsewhere???
@@ -131,7 +130,7 @@ public:
 
 static inline DistributionalValuePtr DistributionalValueCast(const ValuePtr & pa)
 {
-	return std::dynamic_pointer_cast<const DistributionalValue>(pa);
+	return std::dynamic_pointer_cast<DistributionalValue>(pa);
 }
 
 static inline ValuePtr ValueCast(const DistributionalValuePtr & dv)

@@ -69,18 +69,23 @@
 (define (equivalence-to-implication-formula AB EQ)
   (let* ((key  (PredicateNode "CDV"))
          (dvEQ (cog-value EQ key))
-         (cdv  (to-simple-cdv dvEQ))
         )
-        (update-cdv AB cdv)
+        (with-simple-cdv AB dvEQ)
   )
 )
 
-(define no-data-dv (cog-new-dv-simple 0.5 0.0001))
-
-(define (to-simple-cdv dv)
-  (cog-new-cdv (list '(0) '(1)) (list no-data-dv dv))
+(define (with-simple-cdv atom dv)
+  (let
+    ((cdv (cog-new-cdv atom))
+     (no-data-dv (cog-new-dv-simple 0.5 0.0001))
+    )
+    (begin
+      (cog-cdv-add-evidence cdv (FloatValue 0) no-data-dv)
+      (cog-cdv-add-evidence cdv (FloatValue 1) dv)
+      (update-cdv atom cdv)
+    )
+  )
 )
-
 ;(define (equivalence-to-implication-formula AB EQ)
 ;  (let* ((A (gar AB))
 ;         (B (gdr AB))

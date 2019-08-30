@@ -28,7 +28,7 @@ INSTALL (FILES
 	DistributionalValue.h
 	ConditionalDV.h
 	DVFormulas.h
-	DESTINATION "include/opencog/atoms/distvalue"
+	DESTINATION "include/opencog/distvalue"
 )
 
 IF (HAVE_GUILE)

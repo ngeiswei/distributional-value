@@ -1,5 +1,5 @@
 /*
- * opencog/atoms/distvalue/ConditionalDV.cc
+ * opencog/distvalue/ConditionalDV.cc
  *
  * Copyright (C) 2018 SingularityNet
  * All Rights Reserved
@@ -67,23 +67,23 @@ ConditionalDV::ConditionalDV(const DVecSeq &conds,
 
 ConditionalDVPtr ConditionalDV::createCDV()
 {
-	return std::make_shared<const ConditionalDV>();
+	return std::make_shared<ConditionalDV>();
 }
 
 ConditionalDVPtr ConditionalDV::createCDV(size_t size,size_t dims)
 {
-	return std::make_shared<const ConditionalDV>(size,dims);
+	return std::make_shared<ConditionalDV>(size,dims);
 }
 
 ConditionalDVPtr ConditionalDV::createCDV(const CDVrep &rep)
 {
-	return std::make_shared<const ConditionalDV>(rep);
+	return std::make_shared<ConditionalDV>(rep);
 }
 
 ConditionalDVPtr ConditionalDV::createCDV(const DVecSeq &conds,
                                           const std::vector<DistributionalValuePtr> &dvs)
 {
-	return std::make_shared<const ConditionalDV>(conds,dvs);
+	return std::make_shared<ConditionalDV>(conds,dvs);
 }
 
 //Get all the DVs without the Conditions
@@ -116,8 +116,6 @@ DistributionalValuePtr ConditionalDV::get_unconditional(DistributionalValuePtr c
 	DVecSeq keys = condDist->_value.get_posvec();
 	CDVrep remaped = _value.remap(keys);
 
-	std::cout << remaped;
-
 	for (auto v : remaped)
 	{
 		double val = condDist->get_mean(v.pos);
@@ -126,7 +124,7 @@ DistributionalValuePtr ConditionalDV::get_unconditional(DistributionalValuePtr c
 	}
 	if (sum < res.total_count())
 		res *= sum / res.total_count();
-	return std::make_shared<const DistributionalValue>(res);
+	return DistributionalValue::createDV(res);
 }
 
 //Given a Distribution of the Condition calculate a Joint Probability distribution
@@ -237,6 +235,11 @@ ConditionalDVPtr ConditionalDV::remap(const DVecSeq &k) const
 DVecSeq ConditionalDV::get_conditions() const
 {
 	return _value.get_posvec();
+}
+
+void ConditionalDV::add_evidence(const DVec& pos, DistributionalValuePtr val)
+{
+	_value.insert(pos, val->value());
 }
 
 bool ConditionalDV::operator==(const Value& other) const

@@ -116,11 +116,14 @@
 
 (define truecdv
   (let*
-      ((z1 (list '(0) '(1)))
-       (dv1 (cog-new-dv z1 '(800 0)))
-       (dv2 (cog-new-dv z1 '(0 800)))
+      ((dv0 (cog-new-dv-simple 0 0.99))
+       (dv1 (cog-new-dv-simple 1 0.99))
+       (cdv (cog-new-cdv (Implication (Concept "A") (Concept "B"))))
       )
-      (cog-new-cdv z1 (list dv1 dv2))
+      (begin
+        (cog-cdv-add-evidence cdv (FloatValue 0) dv0)
+        (cog-cdv-add-evidence cdv (FloatValue 1) dv1)
+      )
   )
 )
 

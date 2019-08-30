@@ -1,5 +1,5 @@
 /*
- * opencog/atoms/distvalue/ConditionalDV.h
+ * opencog/distvalue/ConditionalDV.h
  *
  * Copyright (C) 2018 SingularityNet
  * All Rights Reserved
@@ -32,7 +32,7 @@
 
 #include <opencog/util/exceptions.h>
 #include <opencog/atoms/value/Value.h>
-#include <opencog/atoms/distvalue/DistributionalValue.h>
+#include <opencog/distvalue/DistributionalValue.h>
 
 /** \addtogroup grp_atomspace
  *	@{
@@ -42,10 +42,10 @@ namespace opencog
 {
 
 class DistributionalValue;
-typedef std::shared_ptr<const DistributionalValue> DistributionalValuePtr;
+typedef std::shared_ptr<DistributionalValue> DistributionalValuePtr;
 
 class ConditionalDV;
-typedef std::shared_ptr<const ConditionalDV> ConditionalDVPtr;
+typedef std::shared_ptr<ConditionalDV> ConditionalDVPtr;
 
 typedef CTHist<CTHist<double>> CDVrep;
 
@@ -95,6 +95,7 @@ public:
 	ConditionalDVPtr remap(const DVecSeq&) const;
 	DVecSeq get_conditions() const;
 
+	void add_evidence(const DVec&, DistributionalValuePtr val);
 
 	virtual bool operator==(const Value& rhs) const;
 
@@ -110,7 +111,7 @@ public:
 
 static inline ConditionalDVPtr ConditionalDVCast(const ValuePtr& pa)
 {
-	return std::dynamic_pointer_cast<const ConditionalDV>(pa);
+	return std::dynamic_pointer_cast<ConditionalDV>(pa);
 }
 
 static inline ValuePtr ValueCast(const ConditionalDVPtr& cdv)

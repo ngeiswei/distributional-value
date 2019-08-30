@@ -1,5 +1,5 @@
 /*
- * opencog/atoms/distvalue/DVecUtils.h
+ * opencog/distvalue/DVecUtils.h
  *
  * Copyright (C) 2018 SingularityNet
  * All Rights Reserved

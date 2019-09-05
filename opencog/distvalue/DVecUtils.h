@@ -39,44 +39,44 @@ namespace opencog
 typedef std::vector<double> DVec;
 typedef std::vector<DVec> DVecSeq;
 
-//Element wise Operators
-//returns vector of size min(a.size(),b.size())
+// Element wise Operators
+// returns vector of size min(a.size(),b.size())
 DVec operator+(const DVec & a, const DVec & b);
 DVec operator-(const DVec & a, const DVec & b);
 DVec operator*(const DVec & a, const DVec & b);
 DVec operator/(const DVec & a, const DVec & b);
 
-//Multiply or Divide all elements in a with b
+// Multiply or Divide all elements in a with b
 DVec operator*(const DVec & a, double b);
 DVec operator/(const DVec & a, double b);
 
-//Compares the sum of both Vectors
-//Considering a and b as points this coresponds to ordering them
-//based on the distance to the origin
+// Compares the sum of both Vectors
+// Considering a and b as points this coresponds to ordering them
+// based on the distance to the origin
 bool operator<(const DVec & a, const DVec & b);
 bool operator>(const DVec & a, const DVec & b);
 
-//Element wise Comparison
+// Element wise Comparison
 bool operator==(const DVec & a, const DVec & b);
 
-//Sum over all elements in the vector
+// Sum over all elements in the vector
 double sum(const DVec & a);
 
-//Calculate the distance between 2 points
+// Calculate the distance between 2 points
 double dist(const DVec & p1, const DVec & p2);
 
-//Calculate the dot product
+// Calculate the dot product
 double dot(const DVec & a, const DVec & b);
 
-//Calculate the mag product
+// Calculate the mag product
 double mag(const DVec & a);
 
-//Calculate cos(angle) between vecotr a and b
+// Calculate cos(angle) between vector a and b
 double angle(const DVec & a, const DVec & b);
 
-//Given a point p and a Cricle with center c and radius r
-//calculate cos(angle) betwen the vector from p to c
-//                                  and  from p to a tangent point on the Cricle
+// Given a point p and a Cricle with center c and radius r
+// calculate cos(angle) betwen the vector from p to c
+//                                   and  from p to a tangent point on the Cricle
 double angleTangent(const DVec & p, const DVec & c, double r);
 
 std::string to_string(const DVec& a);

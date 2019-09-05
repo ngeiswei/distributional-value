@@ -61,12 +61,12 @@ DistributionalValue::DistributionalValue(double mode,double conf,bool fuzzy)
 
 	if (fuzzy)
 	{
-		_value.insert(DVec{mode},count);
+		_value.insert(DVec{mode}, count);
 	}
 	else
 	{
-		_value.insert(DVec{0.0},count * (1 - mode));
-		_value.insert(DVec{1.0},count * mode);
+		_value.insert(DVec{0.0}, count * (1 - mode));
+		_value.insert(DVec{1.0}, count * mode);
 	}
 }
 
@@ -75,8 +75,8 @@ DistributionalValuePtr DistributionalValue::TRUE_TV()
 	static DistributionalValuePtr instance;
 	if (instance == nullptr)
 	{
-		CTHist<double> hist = CTHist<double>(1,1);
-		hist.insert(DVec{1.0},1.0);
+		CTHist<double> hist = CTHist<double>(1, 1);
+		hist.insert(DVec{1.0}, 1.0);
 		instance = createDV(hist);
 	}
     return instance;

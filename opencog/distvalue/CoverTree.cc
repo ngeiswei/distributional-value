@@ -25,6 +25,7 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
+#include <numeric>
 
 #include <opencog/util/exceptions.h>
 #include <opencog/util/numeric.h>
@@ -156,8 +157,7 @@ CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 	// Create a Vector of indexs to the childref of p
 	// and sort it based on the distance of the child to x
 	std::vector<int> idxs(p.children.size());
-	std::size_t n(0);
-    std::generate(std::begin(idxs), std::end(idxs), [&]{ return n++; });
+    std::iota(std::begin(idxs), std::end(idxs),0);
 
 	auto cmp = [&](int i1,int i2) -> bool
 				{
@@ -199,8 +199,7 @@ int CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 	// Create a Vector of indexs to the childref of p
 	// and sort it based on the distance of the child to x
 	std::vector<int> idxs(p.children.size());
-	std::size_t n(0);
-    std::generate(std::begin(idxs), std::end(idxs), [&]{ return n++; });
+    std::iota(std::begin(idxs), std::end(idxs),0);
 
 	auto cmp = [&](int i1,int i2) -> bool
 				{

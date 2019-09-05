@@ -135,7 +135,7 @@ protected:
 	/*
 	 * Check that the Tree is Valid starting from Node at idx and the gvien Level
 	 */
-    bool is_valid_rec(int idx, int level) const;
+	bool is_valid_rec(int idx, int level) const;
 
 public:
 

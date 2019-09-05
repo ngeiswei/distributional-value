@@ -67,9 +67,9 @@ public:
 	static count_t DEFAULT_K;
 
 	DistributionalValue();
-	DistributionalValue(size_t,size_t);
+	DistributionalValue(size_t, size_t);
 	DistributionalValue(const CTHist<double>&);
-	DistributionalValue(double,double,bool);
+	DistributionalValue(double, double, bool);
 
 	const CTHist<double>& value() const { return _value; }
 	CTHist<double>& value() { return _value; }

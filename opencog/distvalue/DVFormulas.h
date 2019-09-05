@@ -66,7 +66,7 @@ public:
 	static DistributionalValuePtr disjunction(DistributionalValuePtr,
 	                                          DistributionalValuePtr);
 
-	static ConditionalDVPtr deduction(ConditionalDVPtr,ConditionalDVPtr);
+	static ConditionalDVPtr deduction(ConditionalDVPtr, ConditionalDVPtr);
 #if 0
 	static ConditionalDVPtr consequent_disjunction_elemination(ConditionalDVPtr,
 	                                                           ConditionalDVPtr);

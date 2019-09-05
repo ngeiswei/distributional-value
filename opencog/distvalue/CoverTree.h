@@ -161,7 +161,7 @@ public:
 	 * throws Expection if there is no Node at the given Postion
 	 */
 	val_t get(const DVec & pos) const;
-	val_t get(const DVec & pos,val_t def) const;
+	val_t get(const DVec & pos, val_t def) const;
 
 	/*
 	 * Get a Vector of all positions
@@ -246,7 +246,7 @@ public:
 double get_count(const double v);
 double get_count(const CoverTree<double>& ct);
 
-bool eq_count(const double v1,const double v2);
+bool eq_count(const double v1, const double v2);
 bool eq_count(const CoverTree<double> & ct1, const CoverTree<double> & ct2);
 
 void update_count(double & v, const double n);

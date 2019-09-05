@@ -34,34 +34,34 @@
 using namespace opencog;
 
 ConditionalDV::ConditionalDV()
-	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(0,0) {}
+	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(0, 0) {}
 
-ConditionalDV::ConditionalDV(size_t size,size_t dims)
-	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(size,dims) {}
+ConditionalDV::ConditionalDV(size_t size, size_t dims)
+	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(size, dims) {}
 
 ConditionalDV::ConditionalDV(const CDVrep &rep)
 	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(rep) {}
 
 ConditionalDV::ConditionalDV(const DVecSeq &conds,
                              const std::vector<DistributionalValuePtr> &dvs)
-	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(conds.size(),conds[0].size())
+	: Value(CONDITIONAL_DISTRIBUTIONAL_VALUE) , _value(conds.size(), conds[0].size())
 {
 	auto it1 = conds.begin();
 	auto it2 = dvs.begin();
 	auto end1	= conds.end();
 	auto end2	= dvs.end();
 	if (conds.empty())
-		throw RuntimeException(TRACE_INFO,"Conds may not be empty.");
+		throw RuntimeException(TRACE_INFO, "Conds may not be empty.");
 
 	if (dvs.empty())
-		throw RuntimeException(TRACE_INFO,"DVs may not be empty.");
+		throw RuntimeException(TRACE_INFO, "DVs may not be empty.");
 
 	if (dvs.size() != conds.size())
-		throw RuntimeException(TRACE_INFO,"DVs and Conds must be the same lenght.");
+		throw RuntimeException(TRACE_INFO, "DVs and Conds must be the same lenght.");
 
 	for (;(it1 != end1) && (it2 != end2); ++it1, ++it2)
 	{
-		_value.insert(*it1,(*it2)->_value);
+		_value.insert(*it1, (*it2)->_value);
 	}
 }
 
@@ -70,9 +70,9 @@ ConditionalDVPtr ConditionalDV::createCDV()
 	return std::make_shared<ConditionalDV>();
 }
 
-ConditionalDVPtr ConditionalDV::createCDV(size_t size,size_t dims)
+ConditionalDVPtr ConditionalDV::createCDV(size_t size, size_t dims)
 {
-	return std::make_shared<ConditionalDV>(size,dims);
+	return std::make_shared<ConditionalDV>(size, dims);
 }
 
 ConditionalDVPtr ConditionalDV::createCDV(const CDVrep &rep)
@@ -83,7 +83,7 @@ ConditionalDVPtr ConditionalDV::createCDV(const CDVrep &rep)
 ConditionalDVPtr ConditionalDV::createCDV(const DVecSeq &conds,
                                           const std::vector<DistributionalValuePtr> &dvs)
 {
-	return std::make_shared<ConditionalDV>(conds,dvs);
+	return std::make_shared<ConditionalDV>(conds, dvs);
 }
 
 //Get all the DVs without the Conditions
@@ -108,9 +108,9 @@ DistributionalValuePtr ConditionalDV::get_unconditional(DistributionalValuePtr c
 	std::vector<size_t> tmp;
     std::transform(_value.begin(), _value.end(), std::back_inserter(tmp),
                    [](auto v) -> size_t { return v.value.max_size(); });
-	auto max_size = *std::max_element(tmp.begin(),tmp.end());
+	auto max_size = *std::max_element(tmp.begin(), tmp.end());
 	auto dims = _value[0].value.dims();
-	CTHist<double> res = CTHist<double>(max_size,dims);
+	CTHist<double> res = CTHist<double>(max_size, dims);
 	double sum = 0;
 
 	DVecSeq keys = condDist->_value.get_posvec();
@@ -135,9 +135,9 @@ DistributionalValuePtr ConditionalDV::get_joint_probability(DistributionalValueP
 	std::vector<size_t> tmp;
     std::transform(_value.begin(), _value.end(), std::back_inserter(tmp),
                    [](auto v) -> size_t { return v.value.max_size(); });
-	size_t s2 = *std::max_element(tmp.begin(),tmp.end());
+	size_t s2 = *std::max_element(tmp.begin(), tmp.end());
 	size_t d2 = _value.begin()->value.dims();
-	CTHist<double> res = CTHist<double>(s1*s2,d1+d2);
+	CTHist<double> res = CTHist<double>(s1*s2, d1+d2);
 	DVecSeq ivsBASE = base->_value.get_posvec();
 
 	ConditionalDVPtr remaped = remap(ivsBASE);
@@ -172,18 +172,18 @@ DistributionalValuePtr ConditionalDV::get_joint_probability(DistributionalValueP
 		for (DVec k2 : ivsTHIS)
 		{
 			DVec k;
-			k.insert(k.end(),k1.begin(),k1.end());
-			k.insert(k.end(),k2.begin(),k2.end());
+			k.insert(k.end(), k1.begin(), k1.end());
+			k.insert(k.end(), k2.begin(), k2.end());
 
 			//Res count based on base count
 			double v1 = base->_value.get(k1);
 			double v2 = uncond->get_mean(k2);
-			res.insert(k,v1 * v2);
+			res.insert(k, v1 * v2);
 		}
 	}
-	lower.insert(lower.end(),lower2.begin(),lower2.end());
-	upper.insert(upper.end(),upper2.begin(),upper2.end());
-	res.update_limits(lower,upper);
+	lower.insert(lower.end(), lower2.begin(), lower2.end());
+	upper.insert(upper.end(), upper2.begin(), upper2.end());
+	res.update_limits(lower, upper);
 
 	return DistributionalValue::createDV(res);
 }
@@ -214,14 +214,14 @@ double ConditionalDV::get_confidence() const
 // A->C + A->C => A->C
 ConditionalDVPtr ConditionalDV::merge(ConditionalDVPtr other) const
 {
-	CDVrep hist = CDVrep::merge(_value,other->_value);
+	CDVrep hist = CDVrep::merge(_value, other->_value);
 	return createCDV(hist);
 }
 
-// A->C + B->C => (A,B)->C
+// A->C + B->C => (A, B)->C
 ConditionalDVPtr ConditionalDV::join(ConditionalDVPtr other) const
 {
-	CDVrep hist = CDVrep::join(_value,other->_value);
+	CDVrep hist = CDVrep::join(_value, other->_value);
 	return createCDV(hist);
 }
 

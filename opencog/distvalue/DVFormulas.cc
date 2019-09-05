@@ -49,12 +49,12 @@ ConditionalDVPtr DVFormulas::joint_to_cdv(DistributionalValuePtr dv1,
 	size_t dv1size = dv1->value().elem_count();
 	size_t dv2size = dv2->value().elem_count();
 
-	CDVrep res = CDVrep(dv1size,dv2dims);
+	CDVrep res = CDVrep(dv1size, dv2dims);
 
 	if (dv1dims <= 1)
-		throw RuntimeException(TRACE_INFO,"Can't divide non Joint DV.");
+		throw RuntimeException(TRACE_INFO, "Can't divide non Joint DV.");
 	if (dv1dims - 1 != dv2dims)
-		throw RuntimeException(TRACE_INFO,"The Divisor DV has to have exaclty 1 less dimensions then then dividend. This is not the case.");
+		throw RuntimeException(TRACE_INFO, "The Divisor DV has to have exaclty 1 less dimensions then then dividend. This is not the case.");
 
 
 	DVecSeq keys = dv1->value().get_posvec();
@@ -62,11 +62,11 @@ ConditionalDVPtr DVFormulas::joint_to_cdv(DistributionalValuePtr dv1,
 	{
 		keys[i].erase(keys[i].begin() + idx);
 	}
-	std::sort(keys.begin(),keys.end());
-	keys.erase(std::unique(keys.begin(),keys.end()),keys.end());
+	std::sort(keys.begin(), keys.end());
+	keys.erase(std::unique(keys.begin(), keys.end()), keys.end());
 	DistributionalValuePtr dv2remap = dv2->remap(keys);
 
-	std::map<DVec,double> counts;
+	std::map<DVec, double> counts;
 
 	for (auto elem : dv1->value())
 	{
@@ -83,9 +83,9 @@ ConditionalDVPtr DVFormulas::joint_to_cdv(DistributionalValuePtr dv1,
 						   dv2remap->get_mean(hs);// *
 						   //dv2remap->total_count();
 
-			CTHist<double> val = CTHist<double>(dv2size,1);
-			val.insert(h,count);
-			res.insert(hs,val);
+			CTHist<double> val = CTHist<double>(dv2size, 1);
+			val.insert(h, count);
+			res.insert(hs, val);
 		}
 	}
 	for (auto & elem : res)
@@ -98,14 +98,14 @@ ConditionalDVPtr DVFormulas::joint_to_cdv(DistributionalValuePtr dv1,
 
 //(A,B,C) => (A,C)
 //idx is the position of the Element to sum out of the joint-dv
-DistributionalValuePtr DVFormulas::sum_joint(DistributionalValuePtr dv, int pos)
+DistributionalValuePtr DVFormulas::sum_joint(DistributionalValuePtr dv,  int pos)
 {
-	CTHist<double> res = CTHist<double>(dv->value().max_size(),dv->value().dims()-1);
+	CTHist<double> res = CTHist<double>(dv->value().max_size(), dv->value().dims()-1);
 	for (auto elem : dv->value())
 	{
 		DVec key = elem.pos;
 		key.erase(key.begin() + pos);
-		res.insert(key,elem.value);
+		res.insert(key, elem.value);
 	}
 	return DistributionalValue::createDV(res);
 }
@@ -121,30 +121,30 @@ DVFormulas::conjunction(DistributionalValuePtr dv1,
 	CTHist<double> res = CTHist<double>(dv1->value().max_size() +
 										dv2->value().max_size() ,
 										dv1->value().dims());
-	double count = std::min(dv1->total_count(),dv2->total_count());
+	double count = std::min(dv1->total_count(), dv2->total_count());
 
     const CTHist<double> & hist1 = dv1->value();
     const CTHist<double> & hist2 = dv2->value();
 
 	std::vector<int> idxs1(hist1.elem_count());
 	std::size_t c1(0);
-    std::generate(std::begin(idxs1), std::end(idxs1), [&]{ return c1++; });
+    std::generate(std::begin(idxs1),  std::end(idxs1), [&]{ return c1++; });
 
 	std::vector<int> idxs2(hist2.elem_count());
 	std::size_t c2(0);
     std::generate(std::begin(idxs2), std::end(idxs2), [&]{ return c2++; });
 
-    auto cmp1 = [&](int i1,int i2) -> bool
+    auto cmp1 = [&](int i1, int i2) -> bool
 				{
 				   return hist1[i1].pos < hist1[i2].pos;
 				};
-    auto cmp2 = [&](int i1,int i2) -> bool
+    auto cmp2 = [&](int i1, int i2) -> bool
 				{
 				   return hist2[i1].pos < hist2[i2].pos;
 				};
 
-	std::sort(idxs1.begin(),idxs1.end(),cmp1);
-	std::sort(idxs2.begin(),idxs2.end(),cmp2);
+	std::sort(idxs1.begin(), idxs1.end(), cmp1);
+	std::sort(idxs2.begin(), idxs2.end(), cmp2);
 
 	//We start at the begining of the map with Keys of the lowest Value
 	auto it1 = idxs1.begin();
@@ -156,7 +156,7 @@ DVFormulas::conjunction(DistributionalValuePtr dv1,
 	double m1 = 1;
 	double m2 = 1;
 
-	while (not is_within(m1,0.0,EPSILON) && not is_within(m2,0.0,EPSILON))
+	while (not is_within(m1, 0.0, EPSILON) && not is_within(m2, 0.0, EPSILON))
 	{
 		//We check which key represents a lower Truthness/Value
 		//This is a fuzzy conjunction so we want to take the min of that
@@ -194,7 +194,7 @@ DVFormulas::disjunction(DistributionalValuePtr dv1,
 	CTHist<double> res = CTHist<double>(dv1->value().max_size() +
 										dv2->value().max_size(),
 										dv1->value().dims());
-	double count = std::min(dv1->total_count(),dv2->total_count());
+	double count = std::min(dv1->total_count(), dv2->total_count());
 
     const CTHist<double> & hist1 = dv1->value();
     const CTHist<double> & hist2 = dv2->value();
@@ -207,17 +207,17 @@ DVFormulas::disjunction(DistributionalValuePtr dv1,
 	std::size_t c2(0);
     std::generate(std::begin(idxs2), std::end(idxs2), [&]{ return c2++; });
 
-    auto cmp1 = [&](int i1,int i2) -> bool
+    auto cmp1 = [&](int i1, int i2) -> bool
 				{
 				   return hist1[i1].pos < hist1[i2].pos;
 				};
-    auto cmp2 = [&](int i1,int i2) -> bool
+    auto cmp2 = [&](int i1, int i2) -> bool
 				{
 				   return hist2[i1].pos < hist2[i2].pos;
 				};
 
-	std::sort(idxs1.begin(),idxs1.end(),cmp1);
-	std::sort(idxs2.begin(),idxs2.end(),cmp2);
+	std::sort(idxs1.begin(), idxs1.end(), cmp1);
+	std::sort(idxs2.begin(), idxs2.end(), cmp2);
 
 	//We start at the begining of the map with Keys of the lowest Value
 	auto it1 = idxs1.end() - 1;
@@ -229,7 +229,7 @@ DVFormulas::disjunction(DistributionalValuePtr dv1,
 	double m1 = 1;
 	double m2 = 1;
 
-	while (not is_within(m1,0.0,EPSILON) && not is_within(m2,0.0,EPSILON))
+	while (not is_within(m1, 0.0, EPSILON) && not is_within(m2, 0.0, EPSILON))
 	{
 		//We check which key represents a lower Truthness/Value
 		//This is a fuzzy conjunction so we want to take the min of that
@@ -260,7 +260,7 @@ DVFormulas::disjunction(DistributionalValuePtr dv1,
 }
 
 ConditionalDVPtr
-DVFormulas::deduction(ConditionalDVPtr cdv1,ConditionalDVPtr cdv2)
+DVFormulas::deduction(ConditionalDVPtr cdv1, ConditionalDVPtr cdv2)
 {
 	auto conds = cdv1->get_conditions();
 	auto unconds = cdv1->get_unconditionals();
@@ -269,7 +269,7 @@ DVFormulas::deduction(ConditionalDVPtr cdv1,ConditionalDVPtr cdv2)
 	{
 		res.push_back(cdv2->get_unconditional(elem));
 	}
-	return ConditionalDV::createCDV(conds,res);
+	return ConditionalDV::createCDV(conds, res);
 }
 
 #if 0
@@ -284,7 +284,7 @@ DVFormulas::consequent_disjunction_elemination(ConditionalDVPtr cdv1,
 		DistributionalValuePtr v1 = cdv1->get_unconditional(elem.first);
 		DistributionalValuePtr v2 = DistributionalValue::createDV(elem.second);
 
-		double count = std::min(v1->total_count(),v2->total_count());
+		double count = std::min(v1->total_count(), v2->total_count());
 
 		DVCounter partres;
 		for (auto elem2 : elem.second)

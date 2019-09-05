@@ -53,30 +53,30 @@ protected:
 
 	//SCHEME Functions
 	ValuePtr ss_new_dv(Handle);
-	ValuePtr ss_new_dv_simple(double,double);
-	ValuePtr ss_dv_add_evidence(ValuePtr,ValuePtr,double);
+	ValuePtr ss_new_dv_simple(double, double);
+	ValuePtr ss_dv_add_evidence(ValuePtr, ValuePtr, double);
 	SCM ss_dv_p(ValuePtr);
-	ValuePtr ss_dv_divide(ValuePtr,ValuePtr,SCM);
-	ValuePtr ss_dv_sum_joint(ValuePtr,SCM);
+	ValuePtr ss_dv_divide(ValuePtr, ValuePtr, SCM);
+	ValuePtr ss_dv_sum_joint(ValuePtr, SCM);
 	SCM ss_dv_get_confidence(ValuePtr);
-	ValuePtr ss_dv_conjunction(ValuePtr,ValuePtr);
-	ValuePtr ss_dv_disjunction(ValuePtr,ValuePtr);
+	ValuePtr ss_dv_conjunction(ValuePtr, ValuePtr);
+	ValuePtr ss_dv_disjunction(ValuePtr, ValuePtr);
 	ValuePtr ss_dv_negate(ValuePtr);
 	SCM ss_dv_is_empty(ValuePtr);
 	SCM ss_cdv_is_empty(ValuePtr);
 
 	ValuePtr ss_new_cdv(Handle);
-	ValuePtr ss_cdv_add_evidence(ValuePtr,ValuePtr,ValuePtr);
+	ValuePtr ss_cdv_add_evidence(ValuePtr, ValuePtr, ValuePtr);
 	SCM ss_cdv_get_confidence(ValuePtr);
-	ValuePtr ss_cdv_get_unconditonal(ValuePtr,ValuePtr);
-	ValuePtr ss_cdv_get_joint(ValuePtr,ValuePtr);
-	ValuePtr ss_cdv_merge(ValuePtr,ValuePtr);
-	ValuePtr ss_cdv_join(ValuePtr,ValuePtr);
-	ValuePtr ss_cdv_deduction(ValuePtr,ValuePtr);
+	ValuePtr ss_cdv_get_unconditonal(ValuePtr, ValuePtr);
+	ValuePtr ss_cdv_get_joint(ValuePtr, ValuePtr);
+	ValuePtr ss_cdv_merge(ValuePtr, ValuePtr);
+	ValuePtr ss_cdv_join(ValuePtr, ValuePtr);
+	ValuePtr ss_cdv_deduction(ValuePtr, ValuePtr);
 
-	ValuePtr ss_dv_merge_hi_conf(ValuePtr,ValuePtr);
-	ValuePtr ss_cdv_merge_hi_conf(ValuePtr,ValuePtr);
-	//SCM ss_cdv_cde(SCM,SCM);
+	ValuePtr ss_dv_merge_hi_conf(ValuePtr, ValuePtr);
+	ValuePtr ss_cdv_merge_hi_conf(ValuePtr, ValuePtr);
+	//SCM ss_cdv_cde(SCM, SCM);
 
 }; // class
 

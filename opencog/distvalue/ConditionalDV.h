@@ -62,7 +62,7 @@ class ConditionalDV
 
 public:
 	ConditionalDV();
-	ConditionalDV(size_t,size_t);
+	ConditionalDV(size_t, size_t);
 	ConditionalDV(const CDVrep&);
 	ConditionalDV(const DVecSeq &conds,
                   const std::vector<DistributionalValuePtr> &dvs);
@@ -70,7 +70,7 @@ public:
 	const CDVrep& value() const { return _value; }
 
 	static ConditionalDVPtr createCDV();
-	static ConditionalDVPtr createCDV(size_t,size_t);
+	static ConditionalDVPtr createCDV(size_t, size_t);
 	static ConditionalDVPtr createCDV(const CDVrep&);
 	static ConditionalDVPtr createCDV(const DVecSeq &conds,
                                       const std::vector<DistributionalValuePtr> &dvs);

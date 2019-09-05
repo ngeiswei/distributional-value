@@ -86,8 +86,8 @@ DistributionalValuePtr DistributionalValue::FALSE_TV()
 	static DistributionalValuePtr instance;
 	if (instance == nullptr)
 	{
-		CTHist<double> hist = CTHist<double>(1,1);
-		hist.insert(DVec{0.0},1.0);
+		CTHist<double> hist = CTHist<double>(1, 1);
+		hist.insert(DVec{0.0}, 1.0);
 		instance = createDV(hist);
 	}
     return instance;
@@ -97,24 +97,24 @@ DistributionalValuePtr DistributionalValue::DEFAULT_TV()
 	static DistributionalValuePtr instance;
 	if (instance == nullptr)
 	{
-		CTHist<double> hist = CTHist<double>(0,1);
+		CTHist<double> hist = CTHist<double>(0, 1);
 		instance = createDV(hist);
 	}
     return instance;
 }
 
-DistributionalValuePtr DistributionalValue::createDV(size_t size,size_t dims)
+DistributionalValuePtr DistributionalValue::createDV(size_t size, size_t dims)
 {
-	return std::make_shared<DistributionalValue>(size,dims);
+	return std::make_shared<DistributionalValue>(size, dims);
 }
 DistributionalValuePtr DistributionalValue::createDV(const CTHist<double> &hist)
 {
 	return std::make_shared<DistributionalValue>(hist);
 }
 DistributionalValuePtr
-DistributionalValue::createDV(double mean,double conf,bool fuzzy)
+DistributionalValue::createDV(double mean, double conf, bool fuzzy)
 {
-	return std::make_shared<DistributionalValue>(mean,conf,fuzzy);
+	return std::make_shared<DistributionalValue>(mean, conf, fuzzy);
 }
 
 //DistributionalValuePtr DistributionalValue::createDV(double mode,
@@ -186,17 +186,17 @@ std::map<DVec,double> DistributionalValue::bin_vars() const
 
 double DistributionalValue::get_mode(const DVec &val) const
 {
-	return get_mode_for(_value.get(val,1));
+	return get_mode_for(_value.get(val, 1));
 }
 
 double DistributionalValue::get_mean(const DVec &val) const
 {
-	return get_mean_for(_value.get(val,0));
+	return get_mean_for(_value.get(val, 0));
 }
 
 double DistributionalValue::get_var(const DVec &val) const
 {
-	return get_var_for(_value.get(val,0));
+	return get_var_for(_value.get(val, 0));
 }
 
 double DistributionalValue::get_count(const DVec &val) const
@@ -215,22 +215,22 @@ double DistributionalValue::get_confidence() const
 	return to_conf(c);
 }
 
-void DistributionalValue::add_evidence(const DVec& pos,double count)
+void DistributionalValue::add_evidence(const DVec& pos, double count)
 {
-	_value.insert(pos,count);
+	_value.insert(pos, count);
 }
 
 DistributionalValuePtr
 DistributionalValue::merge(DistributionalValuePtr other) const
 {
-	CTHist<double> hist = CTHist<double>::merge(_value,other->_value);
+	CTHist<double> hist = CTHist<double>::merge(_value, other->_value);
 	return createDV(hist);
 }
 
 DistributionalValuePtr
 DistributionalValue::join(DistributionalValuePtr other) const
 {
-	CTHist<double> hist = CTHist<double>::join(_value,other->_value);
+	CTHist<double> hist = CTHist<double>::join(_value, other->_value);
 	return createDV(hist);
 }
 
@@ -267,7 +267,7 @@ std::string DistributionalValue::to_string(const std::string& indent) const
 				{
 				   return _value[i1].pos < _value[i2].pos;
 				};
-	std::sort(idxs.begin(),idxs.end(),cmp);
+	std::sort(idxs.begin(), idxs.end(), cmp);
 
 	for (int idx : idxs)
 	{

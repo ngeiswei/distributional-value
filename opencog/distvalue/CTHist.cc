@@ -30,9 +30,9 @@
 using namespace opencog;
 
 template <typename val_t>
-void CTHist<val_t>::insert(const DVec & pos,const val_t & value)
+void CTHist<val_t>::insert(const DVec & pos, const val_t & value)
 {
-	insert(CoverTreeNode<val_t>(pos,value));
+	insert(CoverTreeNode<val_t>(pos, value));
 }
 
 template <typename val_t>
@@ -71,40 +71,40 @@ void CTHist<val_t>::insertMerge(const CoverTreeNode<val_t> & x)
 {
 	int level;
 	int parent = -1;
-	int nearest_idx = findNearestNeighbor_(x,_root_idx,_root_idx,
-										   _root_level,level,parent);
+	int nearest_idx = findNearestNeighbor_(x, _root_idx, _root_idx,
+										   _root_level, level, parent);
 	CoverTreeNode<val_t> & nearest = _nodes[nearest_idx];
-	if (dist(nearest,x) <= epsilon)
+	if (dist(nearest, x) <= epsilon)
 		nearest.value += x.value;
 	else
 	{
-		nearest = mergeNode(x,nearest);
+		nearest = mergeNode(x, nearest);
 
 		std::vector<int> desc = std::vector<int>();
-		descendants(nearest,desc);
+		descendants(nearest, desc);
 
 		//If we aren't the root and we moved outside the coverdistance
-		if (parent != -1 && dist(nearest,_nodes[parent]) > covdist(level+1))
+		if (parent != -1 && dist(nearest, _nodes[parent]) > covdist(level+1))
 		{
 			//Remove our node from the parent
-			_nodes[parent].children.erase(find(_nodes[parent].children.begin(),_nodes[parent].children.end(),nearest_idx));
+			_nodes[parent].children.erase(find(_nodes[parent].children.begin(), _nodes[parent].children.end(), nearest_idx));
 
 			//Add all descendants to the parent
 			for (int c_idx : desc)
 			{
 				_nodes[c_idx].children.clear();
-				insert_rec(c_idx,_nodes[parent],level+1);
+				insert_rec(c_idx, _nodes[parent], level+1);
 			}
 			_nodes[nearest_idx].children.clear();
 
 			//Readd our node
-			insert(nearest_idx,_root_idx,_root_level);
+			insert(nearest_idx, _root_idx, _root_level);
 		}
 		else
 		{
 			//Check if the children are inside the coverdistance
 			//and if not move them
-			rec_move(nearest,nearest,parent,level);
+			rec_move(nearest, nearest, parent, level);
 		}
 	}
 
@@ -120,7 +120,7 @@ void CTHist<val_t>::rec_move(CoverTreeNode<val_t> & n,
 	{
 		int c_idx = *c_idx_it;
 		//Child is outside the covdist we need to move it
-		if (dist(n,_nodes[c_idx]) > covdist(level))
+		if (dist(n, _nodes[c_idx]) > covdist(level))
 		{
 			//If n is the root node the child will become the new root
 			if (n == _nodes[_root_idx])
@@ -134,19 +134,19 @@ void CTHist<val_t>::rec_move(CoverTreeNode<val_t> & n,
 			{   //If we have a parent reinsert the child and it's descendants
 				//on it
 				std::vector<int> c_desc = std::vector<int>();
-				descendants(_nodes[c_idx],c_desc);
+				descendants(_nodes[c_idx], c_desc);
 				for (int cd_idx : c_desc)
 				{
-					insert_rec(cd_idx,_nodes[p_idx],level+1);
+					insert_rec(cd_idx, _nodes[p_idx], level+1);
 				}
 				_nodes[c_idx].children.clear();
-				insert_rec(c_idx,_nodes[p_idx],level+1);
+				insert_rec(c_idx, _nodes[p_idx], level+1);
 			}
 			c_idx_it = x.children.erase(c_idx_it);
 			continue;
 		}
 		//Apperently the descendants don't need to follow this invariant
-		//rec_move(n,_nodes[c_idx],p_idx,level);
+		//rec_move(n, _nodes[c_idx], p_idx, level);
 		c_idx_it++;
 	}
 }
@@ -158,9 +158,9 @@ CoverTreeNode<val_t> CTHist<val_t>::mergeNode(const CoverTreeNode<val_t> & n1,
 	val_t nv = n1.value + n2.value;
 	DVec np = (n1.pos * get_count(n1.value) +
 	           n2.pos * get_count(n2.value)) / get_count(nv);
-	CoverTreeNode<val_t> res = CoverTreeNode<val_t>(np,nv);
-	res.children.insert(res.children.end(),n1.children.begin(),n1.children.end());
-	res.children.insert(res.children.end(),n2.children.begin(),n2.children.end());
+	CoverTreeNode<val_t> res = CoverTreeNode<val_t>(np, nv);
+	res.children.insert(res.children.end(), n1.children.begin(), n1.children.end());
+	res.children.insert(res.children.end(), n2.children.begin(), n2.children.end());
 	return res;
 }
 
@@ -175,15 +175,15 @@ val_t CTHist<val_t>::get_avg(const DVec & pos) const
 			return val_t();
 	}
 
-	CoverTreeNode<val_t> tmp = CoverTreeNode<val_t>(pos,val_t());
+	CoverTreeNode<val_t> tmp = CoverTreeNode<val_t>(pos, val_t());
 	double score = 0;
 	const CoverTreeNode<val_t> * nearest = findNearestNeighbor(tmp);
 
 	if (nearest->pos == pos)
 		return nearest->value;
 
-	val_t sum1 = nearest->value * (1.0/::dist(nearest->pos,pos));
-	double sum2 = 1.0/::dist(nearest->pos,pos);
+	val_t sum1 = nearest->value * (1.0/::dist(nearest->pos, pos));
+	double sum2 = 1.0/::dist(nearest->pos, pos);
 
 	const CoverTreeNode<val_t> * opp_dir =
 		findNeighborInDir(_nodes[_root_idx], pos, pos - nearest->pos,
@@ -202,13 +202,13 @@ val_t CTHist<val_t>::get_avg(const DVec & pos) const
 		if (nearest->pos == opos)
 			return nearest->value;
 
-		sum1 += val_t() * (1.0/::dist(opos,pos));
-		sum2 += 1.0/::dist(opos,pos);
+		sum1 += val_t() * (1.0/::dist(opos, pos));
+		sum2 += 1.0/::dist(opos, pos);
 	}
 	else
 	{
-		sum1 += opp_dir->value * (1.0/::dist(opp_dir->pos,pos));
-		sum2 += 1.0/::dist(opp_dir->pos,pos);
+		sum1 += opp_dir->value * (1.0/::dist(opp_dir->pos, pos));
+		sum2 += 1.0/::dist(opp_dir->pos, pos);
 	}
 
 	return sum1 / sum2;
@@ -220,7 +220,7 @@ CTHist<val_t>::findNeighborInDir(const CoverTreeNode<val_t> & n,
                                  const DVec & t, const DVec & dir, double & score,
 								 const CoverTreeNode<val_t> * best) const
 {
-	double tmp = 1/::dist(n.pos, t) * max(0.0,angle(n.pos - t, dir));
+	double tmp = 1/::dist(n.pos, t) * max(0.0, angle(n.pos - t, dir));
 	if (tmp > score)
 	{
 		score = tmp;
@@ -231,25 +231,25 @@ CTHist<val_t>::findNeighborInDir(const CoverTreeNode<val_t> & n,
 	std::size_t c(0);
     std::generate(std::begin(idxs), std::end(idxs), [&]{ return c++; });
 
-	auto cmp = [&](int i1,int i2) -> bool
+	auto cmp = [&](int i1, int i2) -> bool
 				{
 					auto p1 = _nodes[n.children[i1]].pos;
 					auto p2 = _nodes[n.children[i2]].pos;
-				   return 1/::dist(p1, t) * max(0.0,angle(p1 - t,dir)) <
-					      1/::dist(p2, t) * max(0.0,angle(p2 - t,dir));
+				   return 1/::dist(p1, t) * max(0.0, angle(p1 - t, dir)) <
+					      1/::dist(p2, t) * max(0.0, angle(p2 - t, dir));
 				};
-	std::sort(idxs.begin(),idxs.end(),cmp);
+	std::sort(idxs.begin(),idxs.end(), cmp);
 
 	for (int id : idxs)
 	{
 		auto & q = _nodes[n.children[id]];
 		double r = maxdist(q);
-		double a = std::cos(min(1.0,std::acos(angle(q.pos - t,dir)) -
+		double a = std::cos(min(1.0, std::acos(angle(q.pos - t, dir)) -
 		                   std::acos(angleTangent(t, q.pos, r))));
-		double tmp = 1/(max(0.0,::dist(q.pos, t) - r)) * max(0.0,a);
+		double tmp = 1/(max(0.0, ::dist(q.pos, t) - r)) * max(0.0, a);
 
 		if (tmp > score)
-		    best = findNeighborInDir(q,t,dir,score,best);
+		    best = findNeighborInDir(q, t, dir, score, best);
 	}
 	return best;
 }
@@ -259,10 +259,10 @@ template <typename val_t>
 CTHist<val_t> CTHist<val_t>::remap(const DVecSeq & val) const
 {
 	if (val[0].size() != _dims)
-		throw RuntimeException(TRACE_INFO,"Wrong number of dims to remap.");
+		throw RuntimeException(TRACE_INFO, "Wrong number of dims to remap.");
 
-	CTHist<val_t> res = CTHist<val_t>(val.size(),_dims);
-	res.update_limits(_lower_limits,_upper_limits);
+	CTHist<val_t> res = CTHist<val_t>(val.size(), _dims);
+	res.update_limits(_lower_limits, _upper_limits);
 	double sum = 0;
 	for (DVec pos : val)
 	{
@@ -270,7 +270,7 @@ CTHist<val_t> CTHist<val_t>::remap(const DVecSeq & val) const
 		if (get_count(tmp) == 0)
 			continue;
 		sum += get_count(tmp) / _total_count;
-		res.insert(pos,tmp);
+		res.insert(pos, tmp);
 	}
 	res /= sum;
 	return res;
@@ -313,14 +313,14 @@ CTHist<val_t> CTHist<val_t>::mirrorLinf() const
 {
 	double min;
 	double max;
-	getMinMaxCount(min,max);
+	getMinMaxCount(min, max);
 	double mms = min + max;
-	CTHist<val_t> res = CTHist<val_t>(_max_size,_dims);
+	CTHist<val_t> res = CTHist<val_t>(_max_size, _dims);
 	for (auto elem : _nodes)
 	{
 		double ncount = mms - get_count(elem.value);
 		update_count(elem.value, ncount);
-		res.insert(elem.pos,elem.value);
+		res.insert(elem.pos, elem.value);
 	}
 	return res;
 }
@@ -329,7 +329,7 @@ template <typename val_t>
 CTHist<val_t> CTHist<val_t>::merge(const CTHist<val_t>& t1, const CTHist<val_t>& t2)
 {
 	if (t1._dims != t2._dims)
-		throw RuntimeException(TRACE_INFO,"Can't merge! Dimensions don't align.");
+		throw RuntimeException(TRACE_INFO, "Can't merge! Dimensions don't align.");
 
 	CTHist<val_t> res = CTHist(max(t1._max_size, t2._max_size), t1._dims);
 	res.update_limits(t1._lower_limits, t1._upper_limits);
@@ -354,9 +354,9 @@ template <typename val_t>
 void CTHist<val_t>::merge(const CTHist<val_t>& other)
 {
 	if (_dims != other._dims)
-		throw RuntimeException(TRACE_INFO,"Can't merge! Dimensions don't align.");
+		throw RuntimeException(TRACE_INFO, "Can't merge! Dimensions don't align.");
 
-	update_limits(other._lower_limits,other._upper_limits);
+	update_limits(other._lower_limits, other._upper_limits);
 	for (auto elem : other._nodes)
 	{
 		elem.children = std::vector<int>();
@@ -370,18 +370,18 @@ CTHist<val_t> CTHist<val_t>::join(const CTHist<val_t>& t1, const CTHist<val_t>& 
 	CTHist<val_t> res = CTHist(t1._max_size * t2._max_size,t1._dims + t2._dims);
 	DVec lower = t1._lower_limits;
 	DVec upper = t1._upper_limits;
-	lower.insert(lower.end(),t2._lower_limits.begin(),t2._lower_limits.end());
-	upper.insert(upper.end(),t2._upper_limits.begin(),t2._upper_limits.end());
-	res.update_limits(lower,upper);
+	lower.insert(lower.end(), t2._lower_limits.begin(), t2._lower_limits.end());
+	upper.insert(upper.end(), t2._upper_limits.begin(), t2._upper_limits.end());
+	res.update_limits(lower, upper);
 	for (auto elem1 : t1._nodes)
 	{
 		for (auto elem2 : t2._nodes)
 		{
 			DVec k;
-			k.insert(k.end(),elem1.pos.begin(),elem1.pos.end());
-			k.insert(k.end(),elem2.pos.begin(),elem2.pos.end());
+			k.insert(k.end(), elem1.pos.begin(), elem1.pos.end());
+			k.insert(k.end(), elem2.pos.begin(), elem2.pos.end());
 			val_t tmp = elem1.value + elem2.value;
-			res.insert(k,tmp);
+			res.insert(k, tmp);
 		}
 	}
 	res *=  (t1.total_count() + t2.total_count()) / res.total_count();

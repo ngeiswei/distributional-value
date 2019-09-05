@@ -33,7 +33,7 @@ namespace opencog
 template <typename val_t>
 class CTHist : public CoverTree<val_t> ,
       public boost::addable<CTHist<val_t>> ,
-      public boost::multiplicative<CTHist<val_t>,double>
+      public boost::multiplicative<CTHist<val_t>, double>
 {
 	//We need access to the private default constructor in all related classes
 	//we can't just make it public because it is not a valid CTHist
@@ -89,7 +89,7 @@ class CTHist : public CoverTree<val_t> ,
 	/*
 	 * Similary to findNearestNeighbor but also takes into consideration
 	 * the direction
-	 * score = 1/distance * max(0,cos(angle));
+	 * score = 1/distance * max(0, cos(angle));
 	 */
 	const CoverTreeNode<val_t> *
 		findNeighborInDir(const CoverTreeNode<val_t> & n, const DVec & t,

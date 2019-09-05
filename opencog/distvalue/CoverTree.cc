@@ -54,7 +54,7 @@ bool CoverTreeNode<val_t>::operator==(const CoverTreeNode<val_t>& other) const
 
 	for (auto elem : children)
 	{
-		auto res = std::find(other.children.begin(),other.children.end(), elem);
+		auto res = std::find(other.children.begin(), other.children.end(), elem);
 
 		if (res == other.children.end())
 			return false;
@@ -76,7 +76,7 @@ CoverTree<val_t>::CoverTree(int dims)
 	:  _root_idx(-1) , _root_level(0) , _total_count(0) , _dims(dims) {}
 
 template <typename val_t>
-CoverTree<val_t>::CoverTree(CoverTreeNode<val_t> n,int dims)
+CoverTree<val_t>::CoverTree(CoverTreeNode<val_t> n, int dims)
 	:  _root_idx(-1) , _root_level(0) , _dims(dims) {
 	_nodes.push_back(n);
 	_root_idx = _nodes.size() - 1;
@@ -87,13 +87,13 @@ template <typename val_t>
 double CoverTree<val_t>::dist(const CoverTreeNode<val_t> & n1,
                               const CoverTreeNode<val_t> & n2)
 {
-	return ::dist(n1.pos,n2.pos);
+	return ::dist(n1.pos, n2.pos);
 }
 
 template <typename val_t>
 double CoverTree<val_t>::covdist(int level)
 {
-	return pow(2,level);
+	return pow(2, level);
 }
 
 //TODO: Cache This?
@@ -103,7 +103,7 @@ double CoverTree<val_t>::maxdist(const CoverTreeNode<val_t> & n) const
 	double max = 0;
 	for (int c : n.children)
 	{
-		double tmp = dist(n,_nodes[c]);
+		double tmp = dist(n, _nodes[c]);
 		if (tmp > max)
 			max = tmp;
 	}
@@ -127,15 +127,15 @@ template <typename val_t>
 const CoverTreeNode<val_t> *
 CoverTree<val_t>::findNearestNeighbor(const DVec & pos) const
 {
-	const CoverTreeNode<val_t> & x = CoverTreeNode<val_t>(pos,val_t());
-	return findNearestNeighbor_(x,_nodes[_root_idx],&_nodes[_root_idx]);
+	const CoverTreeNode<val_t> & x = CoverTreeNode<val_t>(pos, val_t());
+	return findNearestNeighbor_(x, _nodes[_root_idx], &_nodes[_root_idx]);
 }
 
 template <typename val_t>
 const CoverTreeNode<val_t> *
 CoverTree<val_t>::findNearestNeighbor(const CoverTreeNode<val_t> & x) const
 {
-	return findNearestNeighbor_(x,_nodes[_root_idx],&_nodes[_root_idx]);
+	return findNearestNeighbor_(x, _nodes[_root_idx], &_nodes[_root_idx]);
 }
 
 
@@ -151,29 +151,29 @@ CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 									   const CoverTreeNode<val_t> * y) const
 {
 	// If p is closer to x then y, update y
-	if (dist(x,p) < dist(x,*y))
+	if (dist(x, p) < dist(x, *y))
 		y = &p;
 
 	// Create a Vector of indexs to the childref of p
 	// and sort it based on the distance of the child to x
 	std::vector<int> idxs(p.children.size());
-    std::iota(std::begin(idxs), std::end(idxs),0);
+    std::iota(std::begin(idxs), std::end(idxs), 0);
 
-	auto cmp = [&](int i1,int i2) -> bool
+	auto cmp = [&](int i1, int i2) -> bool
 				{
-				   return dist(_nodes[p.children[i1]],x) <
-					      dist(_nodes[p.children[i2]],x);
+				   return dist(_nodes[p.children[i1]], x) <
+					      dist(_nodes[p.children[i2]], x);
 				};
-	std::sort(idxs.begin(),idxs.end(),cmp);
+	std::sort(idxs.begin(), idxs.end(), cmp);
 
 	for (int it : idxs)
 	{
 		const CoverTreeNode<val_t> & tmp = _nodes[p.children[it]];
 		//Check if the childs distance to x - the max distance to it's descendants
 		//is closer to x then y. If so we need to check the child
-		if (dist(x,*y) > dist(x,tmp) - maxdist(tmp))
+		if (dist(x, *y) > dist(x, tmp) - maxdist(tmp))
 		{
-			y = findNearestNeighbor_(x,tmp,y);
+			y = findNearestNeighbor_(x, tmp, y);
 		}
 	}
 	return y;
@@ -189,7 +189,7 @@ int CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 	CoverTreeNode<val_t> & p = _nodes[curr_idx];
 	CoverTreeNode<val_t> * y = &_nodes[best_idx];
 	// If p is closer to x then y, update y
-	if (dist(x,p) < dist(x,*y))
+	if (dist(x, p) < dist(x, *y))
 	{
 		best_idx = curr_idx;
 		y = &_nodes[best_idx];
@@ -199,14 +199,14 @@ int CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 	// Create a Vector of indexs to the childref of p
 	// and sort it based on the distance of the child to x
 	std::vector<int> idxs(p.children.size());
-    std::iota(std::begin(idxs), std::end(idxs),0);
+    std::iota(std::begin(idxs), std::end(idxs), 0);
 
-	auto cmp = [&](int i1,int i2) -> bool
+	auto cmp = [&](int i1, int i2) -> bool
 				{
-				   return dist(_nodes[p.children[i1]],x) <
-					      dist(_nodes[p.children[i2]],x);
+				   return dist(_nodes[p.children[i1]], x) <
+					      dist(_nodes[p.children[i2]], x);
 				};
-	std::sort(idxs.begin(),idxs.end(),cmp);
+	std::sort(idxs.begin(), idxs.end(), cmp);
 
 	for (int it : idxs)
 	{
@@ -214,10 +214,10 @@ int CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 		CoverTreeNode<val_t> & c = _nodes[c_idx];
 		//Check if the childs distance to x - the max distance to it's descendants
 		//is closer to x then y. If so we need to check the child
-		if (dist(x,*y) > dist(x,c) - maxdist(c))
+		if (dist(x, *y) > dist(x, c) - maxdist(c))
 		{
-			best_idx = findNearestNeighbor_(x,c_idx,best_idx,
-											level - 1,ret_level,parent);
+			best_idx = findNearestNeighbor_(x, c_idx, best_idx,
+											level - 1, ret_level, parent);
 			y = &_nodes[best_idx];
 			if (*y == c)
 				parent = curr_idx;
@@ -229,7 +229,7 @@ int CoverTree<val_t>::findNearestNeighbor_(const CoverTreeNode<val_t> & x,
 template <typename val_t>
 void CoverTree<val_t>::insert(const DVec & pos, const val_t & value)
 {
-	insert(CoverTreeNode<val_t>(pos,value));
+	insert(CoverTreeNode<val_t>(pos, value));
 }
 
 template <typename val_t>
@@ -239,7 +239,7 @@ void CoverTree<val_t>::insert(const CoverTreeNode<val_t> & x)
 	{
 		std::cout << x.pos.size() << std::endl;
 		std::cout << _dims << std::endl;
-		throw RuntimeException(TRACE_INFO,"Can't Insert. Wrong Number of Dimensions.");
+		throw RuntimeException(TRACE_INFO, "Can't Insert. Wrong Number of Dimensions.");
 	}
 
 	_total_count += get_count(x.value);
@@ -253,7 +253,7 @@ void CoverTree<val_t>::insert(const CoverTreeNode<val_t> & x)
 	}
 
 	//If distance to root is 0, update root node count
-	if (dist(x,_nodes[_root_idx]) == 0)
+	if (dist(x, _nodes[_root_idx]) == 0)
 	{
 		_nodes[_root_idx].value += x.value;
 		return;
@@ -263,7 +263,7 @@ void CoverTree<val_t>::insert(const CoverTreeNode<val_t> & x)
 	//add x as child and calculated the _root_level based on the distance
 	if (_nodes[_root_idx].children.size() == 0)
 	{
-		double d = dist(x,_nodes[_root_idx]);
+		double d = dist(x, _nodes[_root_idx]);
 		_root_level = ceilf(log2(d));
 		_nodes.push_back(x);
 		_nodes[_root_idx].children.push_back(_nodes.size() - 1);
@@ -274,7 +274,7 @@ void CoverTree<val_t>::insert(const CoverTreeNode<val_t> & x)
 	int node_idx = _nodes.size();
 	_nodes.push_back(x);
 	// and figure out which node will be it's parent
-	insert(node_idx,_root_idx,_root_level);
+	insert(node_idx, _root_idx, _root_level);
 }
 
 // Insert the node_idx into the tree starting at "p_id" at level "level"
@@ -286,11 +286,11 @@ void CoverTree<val_t>::insert(int node_idx, int & p_id, int level)
 
 	//If x is outside the covdist
 	//we need to restructer the tree
-	if (dist(x,p) > covdist(level))
+	if (dist(x, p) > covdist(level))
 	{
 		//Below we will increase the level by 1
 		//but if this is not enough we have to do some additional work
-		while (dist(x,p) > covdist(level+1))
+		while (dist(x, p) > covdist(level+1))
 		{
 			//If p has children remove 1 and add it as the parent of p
 			//update p to point to the new parent
@@ -311,7 +311,7 @@ void CoverTree<val_t>::insert(int node_idx, int & p_id, int level)
 			_root_level = level;
 		return;
 	}
-	insert_rec(node_idx,_nodes[p_id],level);
+	insert_rec(node_idx, _nodes[p_id], level);
 }
 
 
@@ -325,7 +325,7 @@ void CoverTree<val_t>::insert_rec(int node_idx,
 	//when reinserting a already existing node it's guranted to be uniqe
 	//thus we can use pop_back to remove the new node as new nodes are always
 	//at the last postion
-	if (dist(x,p) == 0)
+	if (dist(x, p) == 0)
 	{
 		p.value += x.value;
 		_nodes.pop_back();
@@ -336,9 +336,9 @@ void CoverTree<val_t>::insert_rec(int node_idx,
 	// child try adding x there
 	for (int q : p.children)
 	{
-		if (dist(x,_nodes[q]) < covdist(level-1))
+		if (dist(x, _nodes[q]) < covdist(level-1))
 		{
-			insert_rec(node_idx,_nodes[q],level-1);
+			insert_rec(node_idx, _nodes[q], level-1);
 			return;
 		}
 	}
@@ -349,23 +349,23 @@ void CoverTree<val_t>::insert_rec(int node_idx,
 template <typename val_t>
 val_t CoverTree<val_t>::get(const DVec & pos) const
 {
-	CoverTreeNode<val_t> tmp = CoverTreeNode<val_t>(pos,val_t());
+	CoverTreeNode<val_t> tmp = CoverTreeNode<val_t>(pos, val_t());
 	const CoverTreeNode<val_t> * nearest =
-		findNearestNeighbor_(tmp,_nodes[_root_idx],&_nodes[_root_idx]);
+		findNearestNeighbor_(tmp, _nodes[_root_idx], &_nodes[_root_idx]);
 	if (nearest->pos == pos)
 		return nearest->value;
 	else
 	{
-		throw RuntimeException(TRACE_INFO,"No node with given postion in the Histogram.");
+		throw RuntimeException(TRACE_INFO, "No node with given postion in the Histogram.");
 	}
 }
 
 template <typename val_t>
-val_t CoverTree<val_t>::get(const DVec & pos,val_t def) const
+val_t CoverTree<val_t>::get(const DVec & pos, val_t def) const
 {
-	CoverTreeNode<val_t> tmp = CoverTreeNode<val_t>(pos,val_t());
+	CoverTreeNode<val_t> tmp = CoverTreeNode<val_t>(pos, val_t());
 	const CoverTreeNode<val_t> * nearest =
-		findNearestNeighbor_(tmp,_nodes[_root_idx],&_nodes[_root_idx]);
+		findNearestNeighbor_(tmp, _nodes[_root_idx], &_nodes[_root_idx]);
 	if (nearest->pos == pos)
 		return nearest->value;
 	else
@@ -391,10 +391,10 @@ template <typename val_t>
 void CoverTree<val_t>::descendants(const CoverTreeNode<val_t> & p,
                                    std::vector<int> & res) const
 {
-	res.insert(res.end(),p.children.begin(),p.children.end());
+	res.insert(res.end(), p.children.begin(), p.children.end());
 	for (int q : p.children)
 	{
-		descendants(_nodes[q],res);
+		descendants(_nodes[q], res);
 	}
 }
 
@@ -417,24 +417,24 @@ CoverTree<val_t> CoverTree<val_t>::merge(const CoverTree<val_t>& t1,
 template <typename val_t>
 CoverTree<val_t>& CoverTree<val_t>::operator+=(const CoverTree<val_t>& val)
 {
-	*this = merge(*this,val);
+	*this = merge(*this, val);
 	return *this;
 }
 
 template <typename val_t>
 bool CoverTree<val_t>::is_valid() const
 {
-	return is_valid_rec(_root_idx,_root_level);
+	return is_valid_rec(_root_idx, _root_level);
 }
 
 template <typename val_t>
-bool CoverTree<val_t>::is_valid_rec(int idx,int level) const
+bool CoverTree<val_t>::is_valid_rec(int idx, int level) const
 {
 	for (auto c_idx : _nodes[idx].children)
 	{
-		if (dist(_nodes[c_idx],_nodes[idx]) > covdist(level))
+		if (dist(_nodes[c_idx], _nodes[idx]) > covdist(level))
 			return false;
-		if (!is_valid_rec(c_idx,level-1))
+		if (!is_valid_rec(c_idx, level-1))
 			return false;
 	}
 	return true;
@@ -513,7 +513,7 @@ std::string CoverTree<val_t>::to_string() const
 		{
 			auto & n = _nodes[n_id];
 			ss << n.pos << ": " << n.value << std::endl;
-			next.insert(next.end(),n.children.begin(),n.children.end());
+			next.insert(next.end(), n.children.begin(), n.children.end());
 		}
 
 		if (next.size() == 0)
@@ -543,9 +543,9 @@ double opencog::get_count(const CoverTree<double>& ct)
 	return ct.total_count();
 }
 
-bool opencog::eq_count(const double v1,const double v2)
+bool opencog::eq_count(const double v1, const double v2)
 {
-	return is_approx_eq_ulp(v1,v2,24);
+	return is_approx_eq_ulp(v1, v2, 24);
 }
 
 bool opencog::eq_count(const CoverTree<double> & ct1,
@@ -554,12 +554,12 @@ bool opencog::eq_count(const CoverTree<double> & ct1,
 	return ct1 == ct2;
 }
 
-void opencog::update_count(double & v,const double n)
+void opencog::update_count(double & v, const double n)
 {
 	v = n;
 }
 
-void opencog::update_count(CoverTree<double>& ct,const double n)
+void opencog::update_count(CoverTree<double>& ct, const double n)
 {
 	double tmp = n / ct.total_count();
 	ct *= tmp;

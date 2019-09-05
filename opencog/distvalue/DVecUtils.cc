@@ -87,7 +87,7 @@ bool operator==(const DVec & a, const DVec & b)
 		return false;
 	for (unsigned int i = 0; i < a.size(); i++)
 	{
-		if (!is_approx_eq_ulp(a[i],b[i],24))
+		if (!is_approx_eq_ulp(a[i], b[i], 24))
 			return false;
 	}
 	return true;
@@ -115,7 +115,7 @@ double dist(const DVec & p1, const DVec & p2)
 double dot(const DVec & a, const DVec & b)
 {
 	if (a.size() != b.size())
-		throw RuntimeException(TRACE_INFO,"Vectors must be the same lenght.");
+		throw RuntimeException(TRACE_INFO, "Vectors must be the same lenght.");
 	double sum = 0;
 	for (size_t i = 0; i < a.size(); i++)
 	{
@@ -141,12 +141,12 @@ double angle(const DVec & a, const DVec & b)
 		else
 			return 1;
 	}
-	return dot(a,b) / mag(a) * mag(b);
+	return dot(a, b) / mag(a) * mag(b);
 }
 
 double angleTangent(const DVec & p, const DVec & c, double r)
 {
-	double d = dist(p,c);
+	double d = dist(p, c);
 	double l = sqrt(d*d + r*r);
 
 	return l / r;
